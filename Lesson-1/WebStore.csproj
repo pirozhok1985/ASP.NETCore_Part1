@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>Lesson_1</RootNamespace>
+    <RootNamespace>WebStore</RootNamespace>
   </PropertyGroup>
 
 </Project>
