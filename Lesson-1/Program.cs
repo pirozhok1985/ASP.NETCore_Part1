@@ -1,6 +1,16 @@
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllersWithViews();
+
 var app = builder.Build();
 
-app.MapGet("/", () => app.Configuration["CustomGreetings"]);
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
+app.MapDefaultControllerRoute();
+
+//app.MapGet("/", () => app.Configuration["CustomGreetings"]);
 
 app.Run();
