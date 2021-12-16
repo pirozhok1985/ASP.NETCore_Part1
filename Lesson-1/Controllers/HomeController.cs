@@ -14,5 +14,10 @@ namespace WebStore.Controllers
             //return Content(_config.GetValue<string>("CustomGreetings"));
             return View();
         }
+
+        public IActionResult CustomAction(string id)
+        {
+            return Content($"Hello! World! {id}");
+        }
     }
 }
