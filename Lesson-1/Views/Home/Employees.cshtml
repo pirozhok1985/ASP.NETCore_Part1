@@ -11,26 +11,23 @@
     <thead>
     <tr>
         <th>Id</th>
-        <th>Second Name</th>
-        <th>First Name</th>
-        <th>Patronymic</th>
-        <th>Age</th>
-        <th>Income</th>
+        <th>Фамилия</th>
+        <th>Имя</th>
     </tr>
     </thead>
     <tbody>
-        @foreach (var employee in Model)
-        {
-            <tr>
-                <td>@employee.Id</td>
-                <td>@employee.SecondName</td>
-                <td>@employee.FirstName</td>
-                <td>@employee.Patronymic</td>
-                <td>@employee.Age</td>
-                <td>@employee.Income</td>
-            </tr>
-        }
+    @foreach (var employee in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(@employee.Id.ToString(), "EmployeeCard", new { id = employee.Id})
+            </td>
+            <td>@employee.SecondName</td>
+            <td>@employee.FirstName</td>
+        </tr>
+    }
     </tbody>
 </table>
+<a href="/">На главную</a>
 </body>
 </html>
