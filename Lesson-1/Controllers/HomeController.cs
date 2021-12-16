@@ -11,7 +11,8 @@ namespace WebStore.Controllers
         }
         public IActionResult Index()
         {
-            return Content(_config.GetValue<string>("CustomGreetings"));
+            //return Content(_config.GetValue<string>("CustomGreetings"));
+            return View();
         }
     }
 }
