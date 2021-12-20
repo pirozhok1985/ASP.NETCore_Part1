@@ -25,13 +25,11 @@
 </head><!--/head-->
 
 <body>
-
-	
+    @Html.PartialAsync("Partial/_Header")
+    	
 	@RenderBody()
-	
 
-	
-
+    <partial name="Partial/_Footer"/>
   
     <script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
