@@ -1,34 +1,54 @@
 ﻿@model WebStore.Models.Employee
-<!DOCTYPE html>
-<html>
-<head>
-<title>Employee Information Card</title>
-</head>
-<body>
-<table>
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Фамлия</th>
-        <th>Имя</th>
-        <th>Отчество</th>
-        <th>Возраст</th>
-        <th>Зарплата</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>@Model.Id</td>
-        <td>@Model.SecondName</td>
-        <td>@Model.FirstName</td>
-        <td>@Model.Patronymic</td>
-        <td>@Model.Age</td>
-        <td>@Model.Income</td>
-    </tr>
-    </tbody>
-</table>
-@Html.ActionLink("К списку сотрудников", "Employees")
-<a href="/"> На главную</a>
-</body>
 
-</html>
+@{
+    ViewData["Title"] = "EmployeeCard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Employee Card</h1>
+
+<div class="container">
+    <h4>Employee</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SecondName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SecondName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Patronymic)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Patronymic)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Income)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Income)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-controller="Employee" asp-action="Employees">Back to Employees</a>
+</div>
