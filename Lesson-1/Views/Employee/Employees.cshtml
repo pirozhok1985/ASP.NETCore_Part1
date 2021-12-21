@@ -12,11 +12,12 @@
         @foreach (var employee in Model)
         {
             <tr>
-                <td>
-                    @Html.ActionLink(@employee.Id.ToString(), "EmployeeCard", new { id = employee.Id})
-                </td>
+                <td>@employee.Id</td>
                 <td>@employee.SecondName</td>
                 <td>@employee.FirstName</td>
+                <td>
+                    <a asp-controller="Employee" asp-action="EmployeeCard" asp-route-id="@employee.Id">Details</a>
+                </td>
             </tr>
         }
         </tbody>
