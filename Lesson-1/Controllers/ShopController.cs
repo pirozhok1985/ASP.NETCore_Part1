@@ -8,5 +8,10 @@ namespace WebStore.Controllers
         {
             return View("~/Views/Shop/Index.cshtml");
         }
+
+        public IActionResult ProductDetails()
+        {
+            return View("~/Views/Shop/ProductDetails.cshtml");
+        }
     }
 }
