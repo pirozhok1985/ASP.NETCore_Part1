@@ -18,5 +18,9 @@ namespace WebStore.Controllers
         {
             return View("~/Views/Shop/Checkout.cshtml");
         }
+        public IActionResult Cart()
+        {
+            return View("~/Views/Shop/Cart.cshtml");
+        }
     }
 }
