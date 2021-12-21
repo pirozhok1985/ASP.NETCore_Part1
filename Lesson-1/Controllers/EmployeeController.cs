@@ -19,11 +19,41 @@ namespace WebStore.Controllers
             return View(__Employees);
         }
 
-        public IActionResult EmployeeCard(int id)
+        public IActionResult Details(int id)
         {
             Employee employee = __Employees.SingleOrDefault(e => e.Id == id);
             if (employee == null)
                 return NotFound();
+            return View(employee);
+        }
+        public IActionResult Edit(int id)
+        {
+            Employee employee = __Employees.SingleOrDefault(e => e.Id == id);
+            if (employee == null)
+                return NotFound();
+            return View(employee);
+        }
+        [HttpPost]
+        public IActionResult Edit(Employee employee)
+        {
+            var index = __Employees.FindIndex(e => e.Id == employee.Id);
+            __Employees.RemoveAt(index);
+            __Employees.Insert(index, employee);
+
+            return View(employee);
+        }
+        public IActionResult Delete(int id)
+        {
+            Employee employee = __Employees.SingleOrDefault(e => e.Id == id);
+            if (employee == null)
+                return NotFound();
+            return View(employee);
+        }
+        [HttpPost]
+        public IActionResult Delete(Employee employee)
+        {
+            __Employees.Remove(employee);
+
             return View(employee);
         }
     }

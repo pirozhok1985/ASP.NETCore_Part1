@@ -16,7 +16,13 @@
                 <td>@employee.SecondName</td>
                 <td>@employee.FirstName</td>
                 <td>
-                    <a asp-controller="Employee" asp-action="EmployeeCard" asp-route-id="@employee.Id">Details</a>
+                    <a asp-controller="Employee" asp-action="Details" asp-route-id="@employee.Id">Details</a>
+                </td>
+                <td>
+                    <a asp-controller="Employee" asp-action="Edit" asp-route-id="@employee.Id">Edit</a>
+                </td>
+                <td>
+                    <a asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id">Delete</a>
                 </td>
             </tr>
         }
