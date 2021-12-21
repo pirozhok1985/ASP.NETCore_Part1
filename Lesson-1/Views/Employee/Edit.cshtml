@@ -1,0 +1,58 @@
+﻿@model WebStore.Models.Employee
+
+@{
+    ViewData["Title"] = "EditEmployeeCard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Employee Card</h1>
+
+<div class="container">
+    <h4>Employee</h4>
+    <hr/>
+    <form asp-controller="Employee" asp-action="Edit" asp-route-id="@Model.Id">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Возраст</th>
+                <th>Зарплата</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>@Model.Id</td>
+                <td>
+                    <label asp-for="SecondName" class="control-label">@Model.SecondName</label>
+                    <input type="text" asp-for="SecondName" class="table"></input>
+                </td>
+                <td>
+                    <label asp-for="FirstName" class="control-label">@Model.FirstName</label>
+                    <input type="text" asp-for="FirstName" class="table"></input>
+                </td>
+                <td>
+                    <label asp-for="Patronymic" class="control-label">@Model.Patronymic</label>
+                    <input type="text" asp-for="Patronymic" class="table"></input>
+                </td>
+                <td>
+                    <label asp-for="Age" class="control-label">@Model.Age</label>
+                    <input type="number" asp-for="Age" class="table"></input>
+                </td>
+                <td>
+                    <label asp-for="Income" class="control-label">@Model.Income</label>
+                    <input type="number" asp-for="Income" class="table"></input>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="form-group">
+            <input type="submit" value="Сохранить" class="btn btn-default"/>
+        </div>
+    </form>
+</div>
+<div>
+    <a asp-controller="Employee" asp-action="Employees">Back to Employees</a>
+</div>

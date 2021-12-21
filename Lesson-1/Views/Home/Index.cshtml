@@ -1,11 +1,17 @@
-﻿<!DOCTYPE html>
+﻿<partial name="Partial/_Slider"/>
 
-<html>
-<head>
-    <title>Main Page</title>
-</head>
-<body>
-<h3>Page Header</h3>
-<p>Hello! From main page!!</p>
-</body>
-</html>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <partial name="Partial/_LeftSideBar"/>
+            </div>
+
+            <div class="col-sm-9 padding-right">
+                <partial name="Partial/_FeaturesItems"/>
+                <partial name="Partial/_CategoryTab"/>
+                <partial name="Partial/_RecommendedItems"/>
+            </div>
+        </div>
+    </div>
+</section>
