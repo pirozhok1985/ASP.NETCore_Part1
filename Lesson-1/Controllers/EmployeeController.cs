@@ -21,7 +21,10 @@ namespace WebStore.Controllers
 
         public IActionResult EmployeeCard(int id)
         {
-            return View(__Employees.Where(e => e.Id == id).Single());
+            Employee employee = __Employees.SingleOrDefault(e => e.Id == id);
+            if (employee == null)
+                return NotFound();
+            return View(employee);
         }
     }
 }
