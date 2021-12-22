@@ -12,7 +12,7 @@ namespace WebStore.Infrastructure.Conventions
     {
         public void Apply(ControllerModel controller)
         {
-            Debug.WriteLine(controller.Actions);
+            Debug.WriteLine(controller.ControllerName);
         }
     }
 }

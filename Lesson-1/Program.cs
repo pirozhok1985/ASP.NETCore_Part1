@@ -9,17 +9,16 @@ builder.Services.AddControllersWithViews(param =>
 var app = builder.Build();
 
 
+#region Processing PipeLine
+
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
 
-//app.MapDefaultControllerRoute();
-
-//app.MapGet("/", () => app.Configuration["CustomGreetings"]);
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"
-    );
+app.UseWelcomePage("/mswelcome");
+app.MapDefaultControllerRoute();
 app.UseStaticFiles();
 app.Run();
+
+#endregion
