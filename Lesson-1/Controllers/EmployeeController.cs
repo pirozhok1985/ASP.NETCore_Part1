@@ -14,7 +14,7 @@ namespace WebStore.Controllers
             new Employee{Id = 5, SecondName = "Быстроногов", FirstName = "Борис", Patronymic = "Алексеевич", Age = 18, Income = 10000},
             new Employee{Id = 6, SecondName = "Запаховский", FirstName = "Анатолий", Patronymic = "Маркович", Age = 47, Income = 55000}
         };
-        public IActionResult Employees()
+        public IActionResult Index()
         {
             return View(__Employees);
         }
@@ -40,7 +40,7 @@ namespace WebStore.Controllers
             __Employees.RemoveAt(index);
             __Employees.Insert(index, employee);
 
-            return RedirectToAction("Employees");
+            return RedirectToAction("Index");
         }
         public IActionResult Delete(int id)
         {
@@ -54,7 +54,7 @@ namespace WebStore.Controllers
         {
             __Employees.Remove(employee);
 
-            return RedirectToAction("Employees");
+            return RedirectToAction("Index");
         }
     }
 }
