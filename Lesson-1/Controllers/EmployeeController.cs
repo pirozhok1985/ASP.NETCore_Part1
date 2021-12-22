@@ -40,7 +40,7 @@ namespace WebStore.Controllers
             __Employees.RemoveAt(index);
             __Employees.Insert(index, employee);
 
-            return View(employee);
+            return RedirectToAction("Employees");
         }
         public IActionResult Delete(int id)
         {
@@ -54,7 +54,7 @@ namespace WebStore.Controllers
         {
             __Employees.Remove(employee);
 
-            return View(employee);
+            return RedirectToAction("Employees");
         }
     }
 }
