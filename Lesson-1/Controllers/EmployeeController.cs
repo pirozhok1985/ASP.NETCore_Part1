@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebStore.Data;
 using WebStore.Models;
+using WebStore.ViewModels;
 
 namespace WebStore.Controllers
 {
@@ -29,14 +30,23 @@ namespace WebStore.Controllers
             Employee employee = __Employees.SingleOrDefault(e => e.Id == id);
             if (employee == null)
                 return NotFound();
-            return View(employee);
+            var employeeEdit = new EmployeeEditViewModel
+            {
+                Id = employee.Id,
+                Name = employee.FirstName,
+                LastName = employee.SecondName,
+                Patronymic = employee.Patronymic,
+                Age = employee.Age,
+                Income = employee.Income,
+            };
+            return View(employeeEdit);
         }
         [HttpPost]
-        public IActionResult Edit(Employee employee)
+        public IActionResult Edit(EmployeeEditViewModel employee)
         {
-            var index = __Employees.FindIndex(e => e.Id == employee.Id);
-            __Employees.RemoveAt(index);
-            __Employees.Insert(index, employee);
+            //var index = __Employees.FindIndex(e => e.Id == employee.Id);
+            //__Employees.RemoveAt(index);
+            //__Employees.Insert(index, employee);
 
             return RedirectToAction("Index");
         }

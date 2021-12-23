@@ -1,4 +1,4 @@
-﻿@model WebStore.Models.Employee
+﻿@model WebStore.ViewModels.EmployeeEditViewModel
 
 @{
     ViewData["Title"] = "EditEmployeeCard";
@@ -26,12 +26,12 @@
             <tr>
                 <td>@Model.Id</td>
                 <td>
-                    <label asp-for="SecondName" class="control-label">@Model.SecondName</label>
-                    <input type="text" asp-for="SecondName" class="table"></input>
+                    <label asp-for="LastName" class="control-label">@Model.LastName</label>
+                    <input type="text" asp-for="LastName" class="table"></input>
                 </td>
                 <td>
-                    <label asp-for="FirstName" class="control-label">@Model.FirstName</label>
-                    <input type="text" asp-for="FirstName" class="table"></input>
+                    <label asp-for="Name" class="control-label">@Model.Name</label>
+                    <input type="text" asp-for="Name" class="table"></input>
                 </td>
                 <td>
                     <label asp-for="Patronymic" class="control-label">@Model.Patronymic</label>
