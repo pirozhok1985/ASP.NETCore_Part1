@@ -8,7 +8,7 @@ namespace WebStore.Controllers
     [Route("Staff/{action=Index}/{id?}")]
     public class EmployeeController : Controller
     {
-        private readonly List<Employee> __Employees;
+        private readonly ICollection<Employee> __Employees;
 
         public EmployeeController()
         {
