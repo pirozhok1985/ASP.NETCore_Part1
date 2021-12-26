@@ -1,6 +1,7 @@
 ﻿using WebStore.Data;
 using WebStore.Models;
 using WebStore.Services.Interfaces;
+using WebStore.ViewModels;
 
 namespace WebStore.Services;
 
@@ -11,19 +12,37 @@ public class EmployeeDataInMemory : IEmployeesData
     {
         _Employees = TestData.Employees;
     }
-    public void Add(Employee employee)
+    public int Add(Employee employee)
     {
-        throw new NotImplementedException();
+        if (employee == null)
+            throw new ApplicationException();
+        if (_Employees.Contains(employee))
+            return employee.Id;
+        employee.Id = _Employees.DefaultIfEmpty().Max(e => e?.Id ?? 0) + 1;
+        _Employees.Add(employee);
+        return employee.Id;
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        var employee = GetEmployeeById(id);
+        if (employee != null)
+            _Employees.Remove(employee);
+        foreach (var item in _Employees)
+        {
+            if (item.Id > id)
+                --item.Id;
+        }
     }
 
     public void Edit(Employee employee)
     {
-        throw new NotImplementedException();
+        var emp = GetEmployeeById(employee.Id);
+        emp.Age = employee.Age;
+        emp.FirstName = employee.FirstName;
+        emp.SecondName = employee.SecondName;
+        emp.Patronymic = employee.Patronymic;
+        emp.Income = employee.Income;
     }
 
     public IEnumerable<Employee> GetAllEmployees() => _Employees;

@@ -16,17 +16,18 @@
                 <td>@employee.SecondName</td>
                 <td>@employee.FirstName</td>
                 <td>
-                    <a asp-controller="Employee" asp-action="Details" asp-route-id="@employee.Id">Details</a>
+                    <a asp-controller="Employee" asp-action="Details" asp-route-id="@employee.Id">Детали</a>
                 </td>
                 <td>
-                    <a asp-controller="Employee" asp-action="Edit" asp-route-id="@employee.Id">Edit</a>
+                    <a asp-controller="Employee" asp-action="Edit" asp-route-id="@employee.Id">Редактировать</a>
                 </td>
                 <td>
-                    <a asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id">Delete</a>
+                    <a asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id">Удалить</a>
                 </td>
             </tr>
         }
         </tbody>
     </table>
     <a href="/">На главную</a>
+    <a asp-controller="Employee" asp-action="Add">Добавить</a>
 </div>
