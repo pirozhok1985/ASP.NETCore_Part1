@@ -14,7 +14,6 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Id</th>
                 <th>Фамилия</th>
                 <th>Имя</th>
                 <th>Отчество</th>
@@ -24,25 +23,19 @@
             </thead>
             <tbody>
             <tr>
-                <td>@Model.Id</td>
                 <td>
-                    <label asp-for="LastName" class="control-label">@Model.LastName</label>
                     <input type="text" asp-for="LastName" class="table"></input>
                 </td>
                 <td>
-                    <label asp-for="Name" class="control-label">@Model.Name</label>
                     <input type="text" asp-for="Name" class="table"></input>
                 </td>
                 <td>
-                    <label asp-for="Patronymic" class="control-label">@Model.Patronymic</label>
                     <input type="text" asp-for="Patronymic" class="table"></input>
                 </td>
                 <td>
-                    <label asp-for="Age" class="control-label">@Model.Age</label>
                     <input type="number" asp-for="Age" class="table"></input>
                 </td>
                 <td>
-                    <label asp-for="Income" class="control-label">@Model.Income</label>
                     <input type="number" asp-for="Income" class="table"></input>
                 </td>
             </tr>
@@ -54,5 +47,5 @@
     </form>
 </div>
 <div>
-    <a asp-controller="Employee" asp-action="Index">Back to Employees</a>
+    <a asp-controller="Employee" asp-action="Index">Назад к сотрудникам</a>
 </div>
