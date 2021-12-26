@@ -22,7 +22,9 @@
                     <a asp-controller="Employee" asp-action="Edit" asp-route-id="@employee.Id">Редактировать</a>
                 </td>
                 <td>
-                    <a asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id">Удалить</a>
+                    <a asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
                 </td>
             </tr>
         }
