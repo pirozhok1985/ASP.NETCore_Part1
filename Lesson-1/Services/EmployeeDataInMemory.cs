@@ -8,9 +8,11 @@ namespace WebStore.Services;
 public class EmployeeDataInMemory : IEmployeesData
 {
     private readonly ICollection<Employee> _Employees;
-    public EmployeeDataInMemory()
+    private ILogger<EmployeeDataInMemory> _Logger;
+    public EmployeeDataInMemory(ILogger<EmployeeDataInMemory> logger)
     {
         _Employees = TestData.Employees;
+        _Logger = logger;
     }
     public int Add(Employee employee)
     {
@@ -20,6 +22,7 @@ public class EmployeeDataInMemory : IEmployeesData
             return employee.Id;
         employee.Id = _Employees.DefaultIfEmpty().Max(e => e?.Id ?? 0) + 1;
         _Employees.Add(employee);
+        _Logger.LogInformation("Был добавлен пользователь с id {0}", employee.Id);
         return employee.Id;
     }
 
@@ -28,6 +31,7 @@ public class EmployeeDataInMemory : IEmployeesData
         var employee = GetEmployeeById(id);
         if (employee != null)
             _Employees.Remove(employee);
+        _Logger.LogWarning("Был удалён пользователь с id {0}", id);
         foreach (var item in _Employees)
         {
             if (item.Id > id)
@@ -43,6 +47,7 @@ public class EmployeeDataInMemory : IEmployeesData
         emp.SecondName = employee.SecondName;
         emp.Patronymic = employee.Patronymic;
         emp.Income = employee.Income;
+        _Logger.LogWarning("Был отредактирован пользователь с id {0}", employee.Id);
     }
 
     public IEnumerable<Employee> GetAllEmployees() => _Employees;
