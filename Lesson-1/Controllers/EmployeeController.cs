@@ -32,7 +32,7 @@ namespace WebStore.Controllers
             Employee employee = _Data.GetEmployeeById(id);
             if (employee == null)
                 return NotFound();
-            var employeeEdit = new EmployeeEditViewModel
+            var employeeEdit = new EmployeeViewModel
             {
                 Id = employee.Id,
                 Name = employee.FirstName,
@@ -44,7 +44,7 @@ namespace WebStore.Controllers
             return View(employeeEdit);
         }
         [HttpPost]
-        public IActionResult Edit(EmployeeEditViewModel emp)
+        public IActionResult Edit(EmployeeViewModel emp)
         {
             var employee = new Employee
             {
@@ -72,10 +72,10 @@ namespace WebStore.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Add() => View(new EmployeeEditViewModel());
+        public IActionResult Add() => View(new EmployeeViewModel());
 
         [HttpPost]
-        public IActionResult Add(EmployeeEditViewModel emp)
+        public IActionResult Add(EmployeeViewModel emp)
         {
             var employee = new Employee
             {
