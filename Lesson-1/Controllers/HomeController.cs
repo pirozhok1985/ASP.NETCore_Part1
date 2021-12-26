@@ -19,5 +19,7 @@ namespace WebStore.Controllers
         {
             return Content($"Hello! World! {id}");
         }
+
+        public IActionResult Throw(string message) => throw new ApplicationException(message);
     }
 }

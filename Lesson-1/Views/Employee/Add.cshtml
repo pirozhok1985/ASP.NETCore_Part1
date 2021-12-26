@@ -1,7 +1,7 @@
 ﻿@model WebStore.ViewModels.EmployeeViewModel
 
 @{
-    ViewData["Title"] = "EditEmployeeCard";
+    ViewData["Title"] = "AddEmployee";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,7 +10,7 @@
 <div class="container">
     <h4>Employee</h4>
     <hr/>
-    <form asp-controller="Employee" asp-action="Edit" asp-route-id="@Model.Id">
+    <form asp-controller="Employee" asp-action="Add">
         <table class="table">
             <thead>
             <tr>
@@ -47,5 +47,5 @@
     </form>
 </div>
 <div>
-    <a asp-controller="Employee" asp-action="Index">Назад к сотрудникам</a>
+    <a asp-controller="Employee" asp-action="Index">Back to Employees</a>
 </div>
