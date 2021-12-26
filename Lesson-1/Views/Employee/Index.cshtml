@@ -3,6 +3,8 @@
     <table class="table">
         <thead>
         <tr>
+            <th></th>
+            <th></th>
             <th>Id</th>
             <th>Фамилия</th>
             <th>Имя</th>
@@ -12,15 +14,19 @@
         @foreach (var employee in Model)
         {
             <tr>
+                <td>
+                    <a asp-controller="Employee" asp-action="Details" asp-route-id="@employee.Id">
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+                </td>
+                <td>
+                    <a asp-controller="Employee" asp-action="Edit" asp-route-id="@employee.Id">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                </td>
                 <td>@employee.Id</td>
                 <td>@employee.SecondName</td>
                 <td>@employee.FirstName</td>
-                <td>
-                    <a asp-controller="Employee" asp-action="Details" asp-route-id="@employee.Id">Детали</a>
-                </td>
-                <td>
-                    <a asp-controller="Employee" asp-action="Edit" asp-route-id="@employee.Id">Редактировать</a>
-                </td>
                 <td>
                     <a asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id">
                         <i class="fa fa-trash-o"></i>
