@@ -2,7 +2,7 @@
 
 namespace WebStore.Domain.Entities.Base;
 
-public class Entity : IEntity
+public abstract class Entity : IEntity
 {
     public int Id { get; set; }
 }
