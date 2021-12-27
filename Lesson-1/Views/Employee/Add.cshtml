@@ -25,18 +25,23 @@
             <tr>
                 <td>
                     <input type="text" asp-for="LastName" class="table"></input>
+                    <span asp-validation-for="LastName" class="text-danger"></span>
                 </td>
                 <td>
                     <input type="text" asp-for="Name" class="table"></input>
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </td>
                 <td>
                     <input type="text" asp-for="Patronymic" class="table"></input>
+                    <span asp-validation-for="Patronymic" class="text-danger"></span>
                 </td>
                 <td>
                     <input type="number" asp-for="Age" class="table"></input>
+                    <span asp-validation-for="Age" class="text-danger"></span>
                 </td>
                 <td>
                     <input type="number" asp-for="Income" class="table"></input>
+                    <span asp-validation-for="Income" class="text-danger"></span>
                 </td>
             </tr>
             </tbody>
