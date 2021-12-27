@@ -6,7 +6,7 @@ namespace WebStore.Services;
 
 public class ProductDataInMemory : IProductData
 {
-    public IEnumerable<Brand> GetBrand() => TestData.Brands;
+    public IEnumerable<Brand> GetBrands() => TestData.Brands;
 
 
     public IEnumerable<Section> GetSections() => TestData.Sections;

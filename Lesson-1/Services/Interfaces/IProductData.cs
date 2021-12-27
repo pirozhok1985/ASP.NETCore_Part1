@@ -4,7 +4,7 @@ namespace WebStore.Services.Interfaces;
 
 public interface IProductData
 {
-    public IEnumerable<Brand> GetBrand();
+    public IEnumerable<Brand> GetBrands();
     public IEnumerable<Section> GetSections();
 }
 
