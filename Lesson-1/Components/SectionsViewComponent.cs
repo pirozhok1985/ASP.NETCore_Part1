@@ -26,7 +26,7 @@ public class SectionsViewComponent : ViewComponent
 
         foreach (var parent_section_view in parent_sections_views)
         {
-            var children = _Sections.Where(s => s.Id == parent_section_view.Id);
+            var children = _Sections.Where(s => s.ParentId == parent_section_view.Id);
             foreach (var child in children)
             {
                 parent_section_view.ChildSections.Add(new SectionViewModel
