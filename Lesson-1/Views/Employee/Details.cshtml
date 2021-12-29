@@ -1,38 +1,36 @@
-﻿@model WebStore.Models.Employee
+﻿@model Employee
 
 @{
     ViewData["Title"] = "EmployeeCard";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "_LayoutContainer";;
 }
 
 <h1>Employee Card</h1>
 
-<div class="container">
-    <h4>Employee</h4>
-    <hr />
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Отчество</th>
-            <th>Возраст</th>
-            <th>Зарплата</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>@Model.Id</td>
-            <td>@Model.SecondName</td>
-            <td>@Model.FirstName</td>
-            <td>@Model.Patronymic</td>
-            <td>@Model.Age</td>
-            <td>@Model.Income</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<h4>Employee</h4>
+<hr />
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Отчество</th>
+        <th>Возраст</th>
+        <th>Зарплата</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>@Model.Id</td>
+        <td>@Model.SecondName</td>
+        <td>@Model.FirstName</td>
+        <td>@Model.Patronymic</td>
+        <td>@Model.Age</td>
+        <td>@Model.Income</td>
+    </tr>
+    </tbody>
+</table>
 <div>
     <a asp-controller="Employee" asp-action="Index">Back to Employees</a>
 </div>

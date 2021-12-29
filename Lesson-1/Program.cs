@@ -8,6 +8,7 @@ builder.Services.AddControllersWithViews(param =>
     param.Conventions.Add(new TestConvention());
 });
 builder.Services.AddSingleton<IEmployeesData,EmployeeDataInMemory>();
+builder.Services.AddSingleton<IProductData, ProductDataInMemory>();
 
 var app = builder.Build();
 

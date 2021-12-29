@@ -1,51 +1,54 @@
-﻿@model WebStore.ViewModels.EmployeeViewModel
+﻿@model EmployeeViewModel
 
 @{
     ViewData["Title"] = "AddEmployee";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "_LayoutContainer";
 }
 
 <h1>Employee Card</h1>
 
-<div class="container">
-    <h4>Employee</h4>
-    <hr/>
-    <form asp-controller="Employee" asp-action="Add">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Фамилия</th>
-                <th>Имя</th>
-                <th>Отчество</th>
-                <th>Возраст</th>
-                <th>Зарплата</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    <input type="text" asp-for="LastName" class="table"></input>
-                </td>
-                <td>
-                    <input type="text" asp-for="Name" class="table"></input>
-                </td>
-                <td>
-                    <input type="text" asp-for="Patronymic" class="table"></input>
-                </td>
-                <td>
-                    <input type="number" asp-for="Age" class="table"></input>
-                </td>
-                <td>
-                    <input type="number" asp-for="Income" class="table"></input>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="form-group">
-            <input type="submit" value="Сохранить" class="btn btn-default"/>
-        </div>
-    </form>
-</div>
+<h4>Employee</h4>
+<hr/>
+<form asp-controller="Employee" asp-action="Add">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Возраст</th>
+            <th>Зарплата</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <input type="text" asp-for="LastName" class="table"></input>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </td>
+            <td>
+                <input type="text" asp-for="Name" class="table"></input>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </td>
+            <td>
+                <input type="text" asp-for="Patronymic" class="table"></input>
+                <span asp-validation-for="Patronymic" class="text-danger"></span>
+            </td>
+            <td>
+                <input type="number" asp-for="Age" class="table"></input>
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </td>
+            <td>
+                <input type="number" asp-for="Income" class="table"></input>
+                <span asp-validation-for="Income" class="text-danger"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="form-group">
+        <input type="submit" value="Сохранить" class="btn btn-default"/>
+    </div>
+</form>
 <div>
     <a asp-controller="Employee" asp-action="Index">Back to Employees</a>
 </div>

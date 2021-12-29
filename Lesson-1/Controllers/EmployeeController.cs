@@ -46,6 +46,9 @@ namespace WebStore.Controllers
         [HttpPost]
         public IActionResult Edit(EmployeeViewModel emp)
         {
+             if (!ModelState.IsValid)
+                return View(emp);
+
             var employee = new Employee
             {
                 Id = emp.Id,
@@ -77,6 +80,9 @@ namespace WebStore.Controllers
         [HttpPost]
         public IActionResult Add(EmployeeViewModel emp)
         {
+            if (!ModelState.IsValid)
+                return View(emp);
+
             var employee = new Employee
             {
                 Id = emp.Id,

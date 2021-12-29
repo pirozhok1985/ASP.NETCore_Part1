@@ -1,0 +1,12 @@
+﻿@model IEnumerable<BrandViewModel>
+<div class="brands_products"><!--brands_products-->
+    <h2>Brands</h2>
+    <div class="brands-name">
+        @foreach (var brend in Model)
+        {
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="#"> <span class="pull-right">(4)</span>@brend.Name</a></li>
+            </ul>
+        }
+    </div>
+</div><!--/brands_products-->
