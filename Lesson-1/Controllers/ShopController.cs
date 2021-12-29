@@ -1,12 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebStore.Domain;
+using WebStore.Services.Interfaces;
+using WebStore.ViewModels;
 
 namespace WebStore.Controllers
 {
     public class ShopController : Controller
     {
-        public IActionResult Index()
+        private readonly IProductData _ProductData;
+
+        public ShopController(IProductData productData)
         {
-            return View("~/Views/Shop/Index.cshtml");
+            _ProductData = productData;
+        }
+        public IActionResult Index(int? brandId, int? sectionId)
+        {
+            var filter = new ProductFilter
+            {
+                BrandId = brandId,
+                SectionId = sectionId
+            };
+            var products = _ProductData.GetProducts(filter);
+            var productsCatalog = new CatalogViewModel
+            {
+                BrandId = brandId,
+                SectionId = sectionId,
+                Products = products.OrderBy(p => p.Order).
+                    Select(p => new ProductViewModel
+                    {
+                        Id = p.Id,
+                        ImageUrl = p.ImageUrl,
+                        Price = p.Price,
+                        Name = p.Name,
+                    }),
+            };
+            return View(productsCatalog);
         }
 
         public IActionResult ProductDetails()
