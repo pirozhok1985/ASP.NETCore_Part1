@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using WebStore.DAL.Context;
 using WebStore.Infrastructure.Conventions;
 using WebStore.Services;
 using WebStore.Services.Interfaces;
@@ -9,6 +11,7 @@ builder.Services.AddControllersWithViews(param =>
 });
 builder.Services.AddSingleton<IEmployeesData,EmployeeDataInMemory>();
 builder.Services.AddSingleton<IProductData, ProductDataInMemory>();
+builder.Services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 
 var app = builder.Build();
 
