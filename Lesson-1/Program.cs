@@ -12,8 +12,15 @@ builder.Services.AddControllersWithViews(param =>
 builder.Services.AddSingleton<IEmployeesData,EmployeeDataInMemory>();
 builder.Services.AddSingleton<IProductData, ProductDataInMemory>();
 builder.Services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+builder.Services.AddTransient<IDbInitializer, DbInitializer>();
 
 var app = builder.Build();
+await using (var db_scope = app.Services.CreateAsyncScope())
+{
+    var dbInitializer = db_scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+    var token = new CancellationToken(false);
+    await dbInitializer.InitializeAsync(false, token);
+}
 
 
 #region Processing PipeLine

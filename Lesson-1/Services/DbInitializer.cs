@@ -63,22 +63,25 @@ public class DbInitializer : IDbInitializer
             await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.Sections ON", token);
             await _db.SaveChangesAsync(token);
             await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.Sections OFF", token);
+            await _db.Database.CommitTransactionAsync(token);
         }
         _logger.LogInformation("Добавление брендов в бд ...");
         await using (await _db.Database.BeginTransactionAsync(token))
         {
             await _db.Brands.AddRangeAsync(TestData.Brands, token);
-            await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.Sections ON", token);
+            await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.Brands ON", token);
             await _db.SaveChangesAsync(token);
-            await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.Sections OFF", token);
+            await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.Brands OFF", token);
+            await _db.Database.CommitTransactionAsync(token);
         }
         _logger.LogInformation("Добавление товаров в бд ...");
         await using (await _db.Database.BeginTransactionAsync(token))
         {
             await _db.Products.AddRangeAsync(TestData.Products, token);
-            await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.Sections ON", token);
+            await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.Products ON", token);
             await _db.SaveChangesAsync(token);
-            await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.Sections OFF", token);
+            await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.Products OFF", token);
+            await _db.Database.CommitTransactionAsync(token);
         }
         _logger.LogInformation("Инициализация тестовых данных выполнена успешно");
     }
