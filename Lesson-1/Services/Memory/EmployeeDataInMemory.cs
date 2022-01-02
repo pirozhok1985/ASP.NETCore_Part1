@@ -1,9 +1,8 @@
 ﻿using WebStore.Data;
 using WebStore.Models;
 using WebStore.Services.Interfaces;
-using WebStore.ViewModels;
 
-namespace WebStore.Services;
+namespace WebStore.Services.Memory;
 
 public class EmployeeDataInMemory : IEmployeesData
 {
