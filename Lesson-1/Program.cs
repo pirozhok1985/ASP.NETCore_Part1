@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
 using WebStore.Infrastructure.Conventions;
 using WebStore.Services;
+using WebStore.Services.Database;
 using WebStore.Services.Interfaces;
 using WebStore.Services.Memory;
 
@@ -11,7 +12,8 @@ builder.Services.AddControllersWithViews(param =>
     param.Conventions.Add(new TestConvention());
 });
 builder.Services.AddSingleton<IEmployeesData,EmployeeDataInMemory>();
-builder.Services.AddSingleton<IProductData, ProductDataInMemory>();
+//builder.Services.AddSingleton<IProductData, ProductDataInMemory>();
+builder.Services.AddScoped<IProductData, ProductDataDB>();
 builder.Services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 builder.Services.AddTransient<IDbInitializer, DbInitializer>();
 
