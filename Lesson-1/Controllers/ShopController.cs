@@ -50,9 +50,5 @@ namespace WebStore.Controllers
         {
             return View("~/Views/Shop/Cart.cshtml");
         }
-        public IActionResult Login()
-        {
-            return View("~/Views/Shop/Login.cshtml");
-        }
     }
 }
