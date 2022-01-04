@@ -40,7 +40,8 @@ builder.Services.AddTransient<IDbInitializer, DbInitializer>();
 builder.Services.ConfigureApplicationCookie(opt =>
 {
     opt.Cookie.Name = "WebStore.GB";
-    opt.Cookie.Expiration = TimeSpan.FromDays(10);
+    //opt.Cookie.Expiration = TimeSpan.FromDays(10);
+    opt.ExpireTimeSpan = TimeSpan.FromDays(10);
     opt.Cookie.HttpOnly = true;
     opt.LoginPath = "/Account/Login";
     opt.LogoutPath = "/Account/Logout";

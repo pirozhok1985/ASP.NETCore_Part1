@@ -50,5 +50,7 @@ namespace WebStore.Controllers
         {
             return View("~/Views/Shop/Cart.cshtml");
         }
+
+        public IActionResult Login() => RedirectToAction("Login", "Account");
     }
 }
