@@ -65,7 +65,11 @@ public class AccountController : Controller
         return LocalRedirect(model.ReturnUrl ?? "/");
     }
 
-    public IActionResult Logout() => RedirectToAction("Index","Home");
+    public async Task<IActionResult> Logout()
+    {
+        await _signInManager.SignOutAsync();
+        return RedirectToAction("Index", "Home");
+    }
 
     public IActionResult AccessDenied() => View();
 
