@@ -18,5 +18,5 @@ public class LoginUserViewModel
     public bool RememberMe { get; set; }
 
     [HiddenInput(DisplayValue = false)]
-    public string RedirectUrl { get; set; }
+    public string? ReturnUrl { get; set; }
 }

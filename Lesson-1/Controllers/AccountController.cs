@@ -30,7 +30,7 @@ public class AccountController : Controller
         };
 
         var registerResult = await _userManager.CreateAsync(user, model.Password);
-        if (registerResult.Errors.Any())
+        if (!registerResult.Succeeded)
         {
             foreach (var error in registerResult.Errors)
             {
@@ -44,7 +44,27 @@ public class AccountController : Controller
         return RedirectToAction("Index", "Home");
     }
 
-    public IActionResult Login() => View();
+    public IActionResult Login(string returnUrl) => View(new LoginUserViewModel(){ReturnUrl = returnUrl});
+
+    [HttpPost]
+    public async Task<IActionResult> Login(LoginUserViewModel model)
+    {
+        var signInResult = await _signInManager.PasswordSignInAsync
+            (
+                model.UserName,
+                model.Password,
+                model.RememberMe,
+                true
+            );
+        if (signInResult.Succeeded)
+        {
+            ModelState.AddModelError("","UserName or Password is incorrect");
+            return View(model);
+        }
+
+        return LocalRedirect(model.ReturnUrl ?? "/");
+    }
+
     public IActionResult Logout() => RedirectToAction("Index","Home");
 
     public IActionResult AccessDenied() => View();
