@@ -6,16 +6,15 @@ namespace WebStore.ViewModels;
 public class LoginUserViewModel
 {
     [Required]
-    [Display(Name="Имя пользователя")]
+    [Display(Name="User Name")]
     public string UserName { get; set; }
 
     [Required]
-    [Display(Name = "Пароль")]
+    [Display(Name = "Password")]
     [DataType(DataType.Password)]
     public string Password { get; set; }
 
-    [Display(Name = "Запомнить меня")]
-    public bool RememberMe { get; set; }
+    [Display(Name = "Remember Me")] public bool RememberMe { get; set; } = false;
 
     [HiddenInput(DisplayValue = false)]
     public string? ReturnUrl { get; set; }

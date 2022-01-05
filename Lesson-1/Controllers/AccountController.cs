@@ -56,7 +56,7 @@ public class AccountController : Controller
                 model.RememberMe,
                 true
             );
-        if (signInResult.Succeeded)
+        if (!signInResult.Succeeded)
         {
             ModelState.AddModelError("","UserName or Password is incorrect");
             return View(model);
