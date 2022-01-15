@@ -16,7 +16,7 @@ builder.Services.AddControllersWithViews(param =>
 builder.Services.AddSingleton<IEmployeesData,EmployeeDataInMemory>();
 //builder.Services.AddSingleton<IProductData, ProductDataInMemory>();
 builder.Services.AddScoped<IProductData, ProductDataDB>();
-builder.Services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+builder.Services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer_NoteBook")));
 builder.Services.AddIdentity<User, Role>(opt =>
 {
 #if DEBUG
