@@ -14,7 +14,7 @@ builder.Services.AddControllersWithViews(param =>
     param.Conventions.Add(new TestConvention());
 });
 // builder.Services.AddSingleton<IEmployeesData,EmployeeDataInMemory>();
-builder.Services.AddSingleton<IEmployeesData, EmployeeDataDB>();
+builder.Services.AddScoped<IEmployeesData, EmployeeDataDB>();
 //builder.Services.AddSingleton<IProductData, ProductDataInMemory>();
 builder.Services.AddScoped<IProductData, ProductDataDB>();
 builder.Services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer_NoteBook")));

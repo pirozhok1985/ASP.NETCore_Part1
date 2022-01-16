@@ -99,7 +99,9 @@ public class DbInitializer : IDbInitializer
         { 
           _logger.LogInformation("Инициализация сотрудников...");
           await _db.Employees.AddRangeAsync(TestData.Employees, cancel);
+          await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.Employees ON", cancel);
           await _db.SaveChangesAsync(cancel);
+          await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.Employees OFF", cancel);
           await _db.Database.CommitTransactionAsync(cancel);
           _logger.LogInformation("Инициализация сотрудников завершена.");
         }
