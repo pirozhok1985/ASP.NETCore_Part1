@@ -35,7 +35,8 @@ public class EmployeeDataDB : IEmployeesData
 
     public void Delete(int id)
     {
-        var employee = _db.Employees.Select(e => new Employee() {Id = id}).FirstOrDefault(e => e.Id == id);
+        var employee = _db.Employees.FirstOrDefault(e => e.Id == id);
         _db.Employees.Remove(employee);
+        _db.SaveChanges();
     }
 }
