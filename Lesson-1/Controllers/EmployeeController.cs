@@ -28,7 +28,7 @@ public class EmployeeController : Controller
         return View(employee);
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Role.Administrators)]
     public IActionResult Edit(int id)
     {
         var employee = _Data.GetEmployeeById(id);
@@ -45,7 +45,7 @@ public class EmployeeController : Controller
         };
         return View(employeeEdit);
     }
-    [HttpPost]
+    [HttpPost,Authorize(Roles = Role.Administrators)]
     public IActionResult Edit(EmployeeViewModel emp)
     {
         if (!ModelState.IsValid)
@@ -64,7 +64,7 @@ public class EmployeeController : Controller
         return RedirectToAction("Index");
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Role.Administrators)]
     public IActionResult Delete(int id)
     {
         var employee = _Data.GetEmployeeById(id);
@@ -72,20 +72,20 @@ public class EmployeeController : Controller
             return NotFound();
         return View(employee);
     }
-    [HttpPost]
+    [HttpPost, Authorize(Roles = Role.Administrators)]
     public IActionResult Delete(Employee employee)
     {
         _Data.Delete(employee.Id);
         return RedirectToAction("Index");
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Role.Administrators)]
     public IActionResult Add()
     {
         return View(new EmployeeViewModel());
     }
 
-    [HttpPost]
+    [HttpPost, Authorize(Roles = Role.Administrators)]
     public IActionResult Add(EmployeeViewModel emp)
     {
         if (!ModelState.IsValid)
