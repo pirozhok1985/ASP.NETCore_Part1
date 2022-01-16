@@ -40,6 +40,7 @@ public class AccountController : Controller
             return View(model);
         }
 
+        await _userManager.AddToRoleAsync(user, Role.Users);
         await _signInManager.SignInAsync(user, false);
         return RedirectToAction("Index", "Home");
     }
