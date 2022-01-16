@@ -1,7 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic;
 using WebStore.DAL.Context;
 using WebStore.Data;
+using WebStore.Domain.Identity;
 using WebStore.Services.Interfaces;
 
 namespace WebStore.Services;
@@ -9,11 +13,15 @@ public class DbInitializer : IDbInitializer
 {
     private readonly WebStoreDB _db;
     private readonly ILogger<DbInitializer> _logger;
+    private readonly RoleManager<Role> _roleManager;
+    private readonly UserManager<User> _userManager;
 
-    public DbInitializer(WebStoreDB db, ILogger<DbInitializer> logger)
+    public DbInitializer(WebStoreDB db, ILogger<DbInitializer> logger, RoleManager<Role> roleManager, UserManager<User>userManager)
     {
         _db = db;
         _logger = logger;
+        _roleManager = roleManager;
+        _userManager = userManager;
     }
     public async Task InitializeAsync(bool removeBeforeInit, CancellationToken cancel)
     {
@@ -30,6 +38,7 @@ public class DbInitializer : IDbInitializer
 
         await InitializeProductAsync(cancel).ConfigureAwait(false);
         await InitializeEmployeeAsync(cancel).ConfigureAwait(false);
+        await InitializeIdentityAsync(cancel).ConfigureAwait(false);
         _logger.LogInformation("Инициализация базы данных выполнена успешно");
     }
 
@@ -105,6 +114,43 @@ public class DbInitializer : IDbInitializer
           await _db.Database.CommitTransactionAsync(cancel);
           _logger.LogInformation("Инициализация сотрудников завершена.");
         }
+    }
+
+    private async Task CheckRole(string role)
+    {
+        if (await _roleManager.RoleExistsAsync(role))
+        {
+            _logger.LogInformation("Роль {0} уже существует", role);
+            return;
+        }
+
+        await _roleManager.CreateAsync(new Role() {Name = role});
+        _logger.LogInformation("Роль {0} успешно создана", role);
+    }
+
+    private async Task InitializeIdentityAsync(CancellationToken cancel)
+    {
+        await CheckRole(Role.Administrators);
+        await CheckRole(Role.Users);
+
+        if (await _userManager.FindByNameAsync(User.Administrator) is null)
+        {
+            _logger.LogInformation("Пользователь {0} не найден, создаю...", User.Administrator);
+            var user = new User() {UserName = User.Administrator};
+            var creationResult = await _userManager.CreateAsync(user,User.DefaultAdminPassword);
+            if (creationResult.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, Role.Administrators);
+                _logger.LogInformation("Пользователь {0} успешно создан", User.Administrator);
+            }
+            else
+            {
+                var errors = creationResult.Errors.Select(e => e.Description);
+                _logger.LogError("Пользователь {0} не был создан по причине ошибок: {1}",User.Administrator,string.Join(", ", errors));
+                throw new InvalidOperationException(string.Join(", ", errors));
+            }
+        }
+        
     }
 }
 
