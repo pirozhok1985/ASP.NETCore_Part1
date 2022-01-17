@@ -25,4 +25,8 @@
     <Folder Include="Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Views\Shared\Components\UserInfo\default.cshtml" />
+  </ItemGroup>
+
 </Project>
