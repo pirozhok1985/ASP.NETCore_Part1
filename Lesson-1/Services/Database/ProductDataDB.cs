@@ -1,4 +1,5 @@
-﻿using WebStore.DAL.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using WebStore.DAL.Context;
 using WebStore.Domain;
 using WebStore.Domain.Entities;
 using WebStore.Services.Interfaces;
@@ -20,7 +21,7 @@ public class ProductDataDB : IProductData
 
     public IEnumerable<Section> GetSections() => _db.Sections;
 
-    public IEnumerable<Product> GetProducts(ProductFilter? filter = null)
+    public IEnumerable<Product?> GetProducts(ProductFilter? filter = null)
     {
         IQueryable<Product> query = _db.Products;
         if (filter?.SectionId is { } section_id)
@@ -30,5 +31,13 @@ public class ProductDataDB : IProductData
             query = query.Where(p => p.BrandId == brand_id);
 
         return query;
+    }
+
+    public Product? GetProductById(int id)
+    {
+        return _db.Products
+            .Include(p => p.Brand)
+            .Include(p => p.Section)
+            .FirstOrDefault(p => p.Id == id);
     }
 }

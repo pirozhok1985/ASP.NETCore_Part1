@@ -6,7 +6,6 @@ using WebStore.Infrastructure.Conventions;
 using WebStore.Services;
 using WebStore.Services.Database;
 using WebStore.Services.Interfaces;
-using WebStore.Services.Memory;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews(param =>
