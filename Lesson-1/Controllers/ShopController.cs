@@ -36,10 +36,6 @@ namespace WebStore.Controllers
         {
             return View();
         }
-        public IActionResult Cart()
-        {
-            return View();
-        }
 
         public IActionResult Details(int id)
         {

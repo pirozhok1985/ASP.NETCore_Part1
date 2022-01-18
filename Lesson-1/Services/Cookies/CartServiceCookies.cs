@@ -24,7 +24,7 @@ public class CartServiceCookies : ICartService
             if (cartCookies is null)
             {
                 var cart = new Cart();
-                cookies.Append(cartCookies,JsonConvert.SerializeObject(cart));
+                cookies.Append(CartName, JsonConvert.SerializeObject(cart));
                 return cart;
             }
             ReplaceCart(cookies,cartCookies);

@@ -23,7 +23,9 @@ public class ProductDataDB : IProductData
 
     public IEnumerable<Product?> GetProducts(ProductFilter? filter = null)
     {
-        IQueryable<Product> query = _db.Products;
+        IQueryable<Product> query = _db.Products
+            .Include(p => p.Brand)
+            .Include(p => p.Section);
         if (filter?.IDs?.Length > 0)
             query = query.Where(p => filter.IDs.Contains(p.Id));
         
