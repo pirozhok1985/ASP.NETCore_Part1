@@ -24,11 +24,17 @@ public class ProductDataDB : IProductData
     public IEnumerable<Product?> GetProducts(ProductFilter? filter = null)
     {
         IQueryable<Product> query = _db.Products;
-        if (filter?.SectionId is { } section_id)
-            query = query.Where(p => p.SectionId == section_id);
+        if (filter?.IDs?.Length > 0)
+            query = query.Where(p => filter.IDs.Contains(p.Id));
+        
+        else
+        {
+            if (filter?.SectionId is { } section_id)
+                query = query.Where(p => p.SectionId == section_id);
 
-        if (filter?.BrandId is { } brand_id)
-            query = query.Where(p => p.BrandId == brand_id);
+            if (filter?.BrandId is { } brand_id)
+                query = query.Where(p => p.BrandId == brand_id);
+        }
 
         return query;
     }

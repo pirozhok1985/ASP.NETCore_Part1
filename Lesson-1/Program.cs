@@ -4,6 +4,7 @@ using WebStore.DAL.Context;
 using WebStore.Domain.Identity;
 using WebStore.Infrastructure.Conventions;
 using WebStore.Services;
+using WebStore.Services.Cookies;
 using WebStore.Services.Database;
 using WebStore.Services.Interfaces;
 
@@ -16,6 +17,7 @@ builder.Services.AddControllersWithViews(param =>
 builder.Services.AddScoped<IEmployeesData, EmployeeDataDB>();
 //builder.Services.AddSingleton<IProductData, ProductDataInMemory>();
 builder.Services.AddScoped<IProductData, ProductDataDB>();
+builder.Services.AddScoped<ICartService,CartServiceCookies>();
 builder.Services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer_NoteBook")));
 builder.Services.AddIdentity<User, Role>(opt =>
 {
