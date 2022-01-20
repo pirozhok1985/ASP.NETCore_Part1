@@ -9,7 +9,7 @@
         @if (User.IsInRole(Role.Administrators))
         {
             <li>
-                <a href="#">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index">
                     <i class="fa fa-keyboard-o"></i>Adminka
                 </a>
             </li>
