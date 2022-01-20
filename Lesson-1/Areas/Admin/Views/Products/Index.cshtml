@@ -1,4 +1,38 @@
-﻿@{
+﻿@model IEnumerable<ProductViewModel>
+@{
     ViewBag.Title = "Products Catalog";
 }
-<a>Products catalog editor</a>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th></th>
+        <th>@Html.DisplayNameFor(p => p.Id)</th>
+        <th>@Html.DisplayNameFor(p => p.Name)</th>
+        <th>@Html.DisplayNameFor(p => p.Brand)</th>
+        <th>@Html.DisplayNameFor(p => p.Section)</th>
+        <th>@Html.DisplayNameFor(p => p.ImageUrl)</th>
+        <th>@Html.DisplayNameFor(p => p.Price)</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model!)
+        {
+            <tr>
+                <td>
+                    <a>Edit</a>
+                </td>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.Brand</td>
+                <td>@product.Section</td>
+                <td>@product.ImageUrl</td>
+                <td>@product.Price</td>
+                <td>
+                    <a>Remove</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
