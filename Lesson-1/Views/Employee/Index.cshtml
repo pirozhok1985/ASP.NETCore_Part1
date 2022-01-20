@@ -1,4 +1,5 @@
-﻿@model IEnumerable<WebStore.Models.Employee>
+﻿@using WebStore.Domain.Identity
+@model IEnumerable<Employee>
 @{
     Layout = "_LayoutContainer";
 }
@@ -21,22 +22,31 @@
                     <i class="fa fa-info-circle"></i>
                 </a>
             </td>
-            <td>
-                <a asp-controller="Employee" asp-action="Edit" asp-route-id="@employee.Id">
-                    <i class="fa fa-edit"></i>
-                </a>
-            </td>
+            @if (User.IsInRole(Role.Administrators))
+            {
+                <td>
+                    <a asp-controller="Employee" asp-action="Edit" asp-route-id="@employee.Id">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                </td>
+            }
             <td>@employee.Id</td>
             <td>@employee.SecondName</td>
             <td>@employee.FirstName</td>
-            <td>
-                <a asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id">
-                    <i class="fa fa-trash-o"></i>
-                </a>
-            </td>
-        </tr>
+            @if (User.IsInRole(Role.Administrators))
+                {
+                    <td>
+                        <a asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id">
+                            <i class="fa fa-trash-o"></i>
+                        </a>
+                    </td>
+                }
+            </tr>
     }
     </tbody>
 </table>
 <a href="/">На главную</a>
-<a asp-controller="Employee" asp-action="Add">Добавить</a>
+@if (User.IsInRole(Role.Administrators))
+{
+    <a asp-controller="Employee" asp-action="Add">Добавить</a>
+}

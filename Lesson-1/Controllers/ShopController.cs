@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using WebStore.Domain;
+using WebStore.Infrastructure.Mappers;
 using WebStore.Services.Interfaces;
 using WebStore.ViewModels;
 
@@ -25,30 +27,22 @@ namespace WebStore.Controllers
             {
                 BrandId = brandId,
                 SectionId = sectionId,
-                Products = products.OrderBy(p => p.Order).
-                    Select(p => new ProductViewModel
-                    {
-                        Id = p.Id,
-                        ImageUrl = p.ImageUrl,
-                        Price = p.Price,
-                        Name = p.Name,
-                    }),
+                Products = products.OrderBy(p => p.Order).ToView()
             };
             return View(productsCatalog);
         }
 
-        public IActionResult ProductDetails()
-        {
-            return View("~/Views/Shop/ProductDetails.cshtml");
-        }
-
         public IActionResult Checkout()
         {
-            return View("~/Views/Shop/Checkout.cshtml");
+            return View();
         }
-        public IActionResult Cart()
+
+        public IActionResult Details(int id)
         {
-            return View("~/Views/Shop/Cart.cshtml");
+            var product = _ProductData.GetProductById(id);
+            if (product is null)
+                return NotFound();
+            return View(product.ToView());
         }
     }
 }

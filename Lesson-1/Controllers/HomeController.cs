@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebStore.Infrastructure.Mappers;
 using WebStore.Services.Interfaces;
 using WebStore.ViewModels;
 
@@ -14,13 +15,7 @@ namespace WebStore.Controllers
         public IActionResult Index([FromServices]IProductData productData)
         {
             //return Content(_config.GetValue<string>("CustomGreetings"));
-            var products = productData.GetProducts().Take(3).OrderBy(p => p.Order).Select(p => new ProductViewModel
-            {
-                Id = p.Id,
-                Name = p.Name,
-                ImageUrl = p.ImageUrl,
-                Price = p.Price,
-            });
+            var products = productData.GetProducts().Take(3).OrderBy(p => p?.Order).ToView();
             ViewBag.Products = products;
             return View();
         }

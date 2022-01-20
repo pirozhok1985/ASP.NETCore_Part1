@@ -4,18 +4,20 @@ using WebStore.DAL.Context;
 using WebStore.Domain.Identity;
 using WebStore.Infrastructure.Conventions;
 using WebStore.Services;
+using WebStore.Services.Cookies;
 using WebStore.Services.Database;
 using WebStore.Services.Interfaces;
-using WebStore.Services.Memory;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews(param =>
 {
     param.Conventions.Add(new TestConvention());
 });
-builder.Services.AddSingleton<IEmployeesData,EmployeeDataInMemory>();
+// builder.Services.AddSingleton<IEmployeesData,EmployeeDataInMemory>();
+builder.Services.AddScoped<IEmployeesData, EmployeeDataDB>();
 //builder.Services.AddSingleton<IProductData, ProductDataInMemory>();
 builder.Services.AddScoped<IProductData, ProductDataDB>();
+builder.Services.AddScoped<ICartService,CartServiceCookies>();
 builder.Services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer_NoteBook")));
 builder.Services.AddIdentity<User, Role>(opt =>
 {

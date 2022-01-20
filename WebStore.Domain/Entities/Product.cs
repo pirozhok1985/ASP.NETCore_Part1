@@ -21,6 +21,6 @@ public class Product : NamedEntity, IOrderedEntity
     public Section Section { get; set; }
 
     [ForeignKey(nameof(BrandId))]
-    public Brand Brand { get; set; }
+    public Brand? Brand { get; set; }
 }
 

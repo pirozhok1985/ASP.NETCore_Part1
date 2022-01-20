@@ -10,14 +10,20 @@
                     <div class="productinfo text-center">
                         <img src="~/images/shop/@product.ImageUrl" alt="" />
                         <h2>@product.Price</h2>
-                        <p>@product.Name</p>
-                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                        <p><a asp-controller="Shop" asp-action="Details" asp-route-id="@product.Id ">@product.Name</a></p>
+                        <a class="btn btn-default add-to-cart"
+                           asp-action="Add" asp-controller="Cart" asp-route-id="@product.Id">
+                            <i class="fa fa-shopping-cart"></i>Add to cart
+                        </a>
                     </div>
                     <div class="product-overlay">
                         <div class="overlay-content">
                             <h2>@product.Price</h2>
-                            <p>@product.Name</p>
-                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                            <p><a asp-controller="Shop" asp-action="Details" asp-route-id="@product.Id ">@product.Name</a></p>
+                            <a class="btn btn-default add-to-cart"
+                               asp-action="Add" asp-controller="Cart" asp-route-id="@product.Id">
+                                <i class="fa fa-shopping-cart"></i>Add to cart
+                            </a>
                         </div>
                     </div>
                 </div>
