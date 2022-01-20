@@ -68,11 +68,16 @@ if (app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 app.UseRouting();
-app.MapDefaultControllerRoute();
-
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+    endpoints.MapDefaultControllerRoute();
+});
 app.UseWelcomePage("/mswelcome");
 
 
