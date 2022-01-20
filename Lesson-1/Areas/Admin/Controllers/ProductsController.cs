@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol;
 using WebStore.Domain.Identity;
 using WebStore.Infrastructure.Mappers;
 using WebStore.Services.Interfaces;
+using WebStore.ViewModels;
 
 namespace WebStore.Areas.Admin.Controllers;
 
@@ -20,9 +22,20 @@ public class ProductsController : Controller
 
     public IActionResult Index()
     {
-        var productView = _productData.GetProducts().ToView();
-        return  View(productView);
+        var productsView = _productData.GetProducts().ToView();
+        return  View(productsView);
     }
 
-    
+    public IActionResult Edit(int id)
+    {
+        var productView = _productData.GetProductById(id).ToView();
+        return View(productView);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(ProductViewModel productView)
+    {
+        var product = productView.FromView();
+        return RedirectToAction("Index");
+    }
 }
