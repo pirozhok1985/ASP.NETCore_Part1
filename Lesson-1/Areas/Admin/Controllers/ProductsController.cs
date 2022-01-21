@@ -35,8 +35,24 @@ public class ProductsController : Controller
     [HttpPost]
     public IActionResult Edit(ProductViewModel productView)
     {
+        if (!ModelState.IsValid)
+            return View(productView);
         var product = productView.FromView();
         _productData.Edit(product);
+        return RedirectToAction("Index");
+    }
+
+    public IActionResult Delete(int id)
+    {
+        var productView = _productData.GetProductById(id).ToView();
+        return View(productView);
+    }
+    
+    [HttpPost]
+    public IActionResult Delete(ProductViewModel productView)
+    {
+        var product = productView.FromView();
+        _productData.Delete(product.Id);
         return RedirectToAction("Index");
     }
 }

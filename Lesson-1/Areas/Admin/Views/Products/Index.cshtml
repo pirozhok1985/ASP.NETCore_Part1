@@ -30,7 +30,7 @@
                 <td>@product.ImageUrl</td>
                 <td>@product.Price</td>
                 <td>
-                    <a>Remove</a>
+                    <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id">Remove</a>
                 </td>
             </tr>
         }

@@ -57,10 +57,9 @@ public class ProductDataDB : IProductData
         _db.SaveChanges();
     }
 
-    public void Delete(Product product)
+    public void Delete(int id)
     {
-        if (product is null)
-            return;
+        var product = GetProductById(id);
         _db.Products.Remove(product);
         _db.SaveChanges();
     }
