@@ -36,6 +36,7 @@ public class ProductsController : Controller
     public IActionResult Edit(ProductViewModel productView)
     {
         var product = productView.FromView();
+        _productData.Edit(product);
         return RedirectToAction("Index");
     }
 }

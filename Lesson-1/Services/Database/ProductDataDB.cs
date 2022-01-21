@@ -49,13 +49,19 @@ public class ProductDataDB : IProductData
             .FirstOrDefault(p => p.Id == id);
     }
 
-    public void Edit(int id)
+    public void Edit(Product product)
     {
-
+        if (product is null)
+            return;
+        _db.Products.Update(product);
+        _db.SaveChanges();
     }
 
-    public void Delete(int id)
+    public void Delete(Product product)
     {
-
+        if (product is null)
+            return;
+        _db.Products.Remove(product);
+        _db.SaveChanges();
     }
 }

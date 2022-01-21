@@ -1,4 +1,6 @@
-﻿namespace WebStore.ViewModels;
+﻿using WebStore.Domain.Entities;
+
+namespace WebStore.ViewModels;
 
 public class ProductViewModel
 {
@@ -8,5 +10,7 @@ public class ProductViewModel
     public string ImageUrl { get; set; }
     public string Section { get; set; }
     public string? Brand { get; set; }
+    public int SectionId { get; set; }
+    public int? BrandId { get; set; }
 }
 
