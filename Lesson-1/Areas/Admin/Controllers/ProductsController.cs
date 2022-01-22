@@ -59,4 +59,31 @@ public class ProductsController : Controller
         _productData.Delete(product.Id);
         return RedirectToAction("Index");
     }
+    
+    public IActionResult Add(string name, string? brand, string section, string? imageUrl, decimal price)
+    {
+        var productView = new ProductViewModel
+        {
+            Name = name,
+            Brand = brand,
+            Section = section,
+            ImageUrl = imageUrl,
+            Price = price
+        };
+        return View(productView);
+    }
+    
+    [HttpPost]
+    public IActionResult Add(ProductViewModel productView)
+    {
+        if (!ModelState.IsValid)
+            return View(productView);
+        var product = productView.FromView();
+        var brand = _productData.GetBrands().FirstOrDefault(b => b.Name.Equals(product.Brand.Name));
+        var section = _productData.GetSections().FirstOrDefault(s => s.Name.Equals(product.Section.Name));
+        product.Brand = brand;
+        product.Section = section;
+        _productData.Add(product);
+        return RedirectToAction("Index");
+    }
 }

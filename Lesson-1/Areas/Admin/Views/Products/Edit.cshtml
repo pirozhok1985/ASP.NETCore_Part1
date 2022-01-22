@@ -1,6 +1,7 @@
 ﻿@model ProductViewModel
 @{
     ViewBag.Title = "Product Edit Form";
+    Layout = "_Layout";
 }
 <form asp-controller="Products" asp-action="Edit" asp-route-id="@Model.Id">
     <table class="table">
