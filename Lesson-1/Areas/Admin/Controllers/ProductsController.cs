@@ -38,6 +38,10 @@ public class ProductsController : Controller
         if (!ModelState.IsValid)
             return View(productView);
         var product = productView.FromView();
+        var brand = _productData.GetBrands().FirstOrDefault(b => b.Name.Equals(product.Brand.Name));
+        var section = _productData.GetSections().FirstOrDefault(s => s.Name.Equals(product.Section.Name));
+        product.Brand = brand;
+        product.Section = section;
         _productData.Edit(product);
         return RedirectToAction("Index");
     }

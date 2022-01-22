@@ -27,7 +27,8 @@ public static class ProductMapper
             ImageUrl = product.ImageUrl,
             Price = product.Price,
             Name = product.Name,
-            BrandId = product.BrandId,
+            Brand = new Brand{Name = product.Brand},
+            Section = new Section{Name = product.Section},
             SectionId = product.SectionId
         };
     

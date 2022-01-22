@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using WebStore.Domain.Entities;
+using WebStore.Services;
+using WebStore.Services.Interfaces;
 
 namespace WebStore.ViewModels;
 
@@ -16,7 +18,11 @@ public class ProductViewModel
     [Range(10, 5000, ErrorMessage = "Укажите цену из допустимого диапазона" )]
     public decimal Price { get; set; }
     public string ImageUrl { get; set; }
+    
+    [CustomValidation(typeof(BrandAndSectionValidator), "ValidateSection")]
     public string Section { get; set; }
+    
+    [CustomValidation(typeof(BrandAndSectionValidator), "ValidateBrand")]
     public string? Brand { get; set; }
     public int SectionId { get; set; }
     public int? BrandId { get; set; }
