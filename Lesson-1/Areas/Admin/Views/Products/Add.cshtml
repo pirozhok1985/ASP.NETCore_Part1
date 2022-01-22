@@ -1,10 +1,19 @@
 ﻿@model ProductViewModel
 @{
-    ViewBag.Title = "Product Edit Form";
+    ViewBag.Title = "Product Add Form";
     Layout = "_Layout";
 }
-<form asp-controller="Products" asp-action="Edit" asp-route-id="@Model.Id">
+<form asp-controller="Products" asp-action="Add" asp-route-id="@Model.Id">
     <table class="table">
+        <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(p => p.Name)</th>
+            <th>@Html.DisplayNameFor(p => p.Brand)</th>
+            <th>@Html.DisplayNameFor(p => p.Section)</th>
+            <th>@Html.DisplayNameFor(p => p.ImageUrl)</th>
+            <th>@Html.DisplayNameFor(p => p.Price)</th>
+        </tr>
+        </thead>
         <tbody>
         <tr>
             <td>
@@ -26,12 +35,6 @@
             <td>
                 <input type="number" asp-for="Price" class="table"></input>
                 <span asp-validation-for="Price" class="text-danger"></span>
-            </td>
-            <td>
-                <input type="hidden" asp-for="BrandId" class="table"></input>
-            </td>
-            <td>
-                <input type="hidden" asp-for="SectionId" class="table"></input>
             </td>
         </tr>
         </tbody>

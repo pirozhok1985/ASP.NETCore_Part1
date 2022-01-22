@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<ProductViewModel>
 @{
     ViewBag.Title = "Products Catalog";
+    Layout = "_Layout";
 }
 
 <table class="table">
@@ -17,22 +18,23 @@
     </tr>
     </thead>
     <tbody>
-        @foreach (var product in Model!)
-        {
-            <tr>
-                <td>
-                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
-                </td>
-                <td>@product.Id</td>
-                <td>@product.Name</td>
-                <td>@product.Brand</td>
-                <td>@product.Section</td>
-                <td>@product.ImageUrl</td>
-                <td>@product.Price</td>
-                <td>
-                    <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id">Remove</a>
-                </td>
-            </tr>
-        }
+    @foreach (var product in Model!)
+    {
+        <tr>
+            <td>
+                <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
+            </td>
+            <td>@product.Id</td>
+            <td>@product.Name</td>
+            <td>@product.Brand</td>
+            <td>@product.Section</td>
+            <td>@product.ImageUrl</td>
+            <td>@product.Price</td>
+            <td>
+                <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id">Remove</a>
+            </td>
+        </tr>
+    }
     </tbody>
 </table>
+<a asp-controller="Products" asp-action="Add">Add</a>

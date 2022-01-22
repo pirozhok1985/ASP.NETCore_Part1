@@ -63,4 +63,10 @@ public class ProductDataDB : IProductData
         _db.Products.Remove(product);
         _db.SaveChanges();
     }
+
+    public void Add(Product product)
+    {
+        _db.Products.Add(product);
+        _db.SaveChanges();
+    }
 }

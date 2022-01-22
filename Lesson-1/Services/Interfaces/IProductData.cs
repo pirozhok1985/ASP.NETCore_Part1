@@ -11,5 +11,6 @@ public interface IProductData
     public Product? GetProductById(int id);
     public void Edit(Product product);
     public void Delete(int id);
+    public void Add(Product product);
 }
 
