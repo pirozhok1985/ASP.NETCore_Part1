@@ -24,7 +24,7 @@ public class OrderServiceDB : IOrderService
          return await _db.Orders
             .Include(o => o.User)
             .Include(o => o.Items)
-            .ThenInclude(i => i.Order)
+            // .ThenInclude(i => i.Order)
             .Where(o => o.User.UserName == userName)
             .ToArrayAsync(cancellationToken)
             .ConfigureAwait(false);
