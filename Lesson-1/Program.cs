@@ -18,6 +18,7 @@ builder.Services.AddScoped<IEmployeesData, EmployeeDataDB>();
 //builder.Services.AddSingleton<IProductData, ProductDataInMemory>();
 builder.Services.AddScoped<IProductData, ProductDataDB>();
 builder.Services.AddScoped<ICartService,CartServiceCookies>();
+builder.Services.AddScoped<IOrderService, OrderServiceDB>();
 builder.Services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 builder.Services.AddIdentity<User, Role>(opt =>
 {
