@@ -1,6 +1,4 @@
-﻿using WebStore.Domain.Entities;
-
-public class SectionViewModel
+﻿public class SectionViewModel
 {
     public int Id { get; set; }
     public string Name { get; set; }

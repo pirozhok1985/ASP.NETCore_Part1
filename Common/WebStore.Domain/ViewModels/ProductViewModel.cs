@@ -1,8 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using WebStore.Domain.Entities;
-using WebStore.Services;
-using WebStore.Services.Interfaces;
 
 namespace WebStore.ViewModels;
 
