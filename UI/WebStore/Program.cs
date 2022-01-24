@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
 using WebStore.Domain.Identity;
 using WebStore.Infrastructure.Conventions;
+using WebStore.Interfaces.Services;
 using WebStore.Services;
-using WebStore.Services.Cookies;
-using WebStore.Services.Database;
-using WebStore.Services.Interfaces;
+using WebStore.Services.Services;
+using WebStore.Services.Services.Cookies;
+using WebStore.Services.Services.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews(param =>

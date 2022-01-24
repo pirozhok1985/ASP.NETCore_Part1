@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol;
 using WebStore.Domain.Identity;
-using WebStore.Infrastructure.Mappers;
-using WebStore.Services.Interfaces;
-using WebStore.ViewModels;
+using WebStore.Domain.ViewModels;
+using WebStore.Interfaces.Services;
+using WebStore.Services.Services;
 
 namespace WebStore.Areas.Admin.Controllers;
 

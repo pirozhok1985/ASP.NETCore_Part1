@@ -1,14 +1,11 @@
-﻿using System.Text.Json;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using WebStore.DAL.Migrations;
 using WebStore.Domain;
 using WebStore.Domain.Entities;
-using WebStore.Infrastructure.Mappers;
-using WebStore.Services.Interfaces;
-using WebStore.ViewModels;
+using WebStore.Domain.ViewModels;
+using WebStore.Interfaces.Services;
 
-namespace WebStore.Services.Cookies;
+namespace WebStore.Services.Services.Cookies;
 
 public class CartServiceCookies : ICartService
 {

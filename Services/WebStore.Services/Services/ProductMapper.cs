@@ -1,7 +1,7 @@
 ﻿using WebStore.Domain.Entities;
-using WebStore.ViewModels;
+using WebStore.Domain.ViewModels;
 
-namespace WebStore.Infrastructure.Mappers;
+namespace WebStore.Services.Services;
 
 public static class ProductMapper
 {

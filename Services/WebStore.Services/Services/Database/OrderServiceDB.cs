@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
-using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.Orders;
 using WebStore.Domain.Identity;
-using WebStore.Services.Interfaces;
-using WebStore.ViewModels;
+using WebStore.Domain.ViewModels;
+using WebStore.Interfaces.Services;
 
-namespace WebStore.Services.Database;
+namespace WebStore.Services.Services.Database;
 
 public class OrderServiceDB : IOrderService
 {

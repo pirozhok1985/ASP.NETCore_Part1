@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.Entities;
-using WebStore.Services.Interfaces;
+using WebStore.Domain.ViewModels;
+using WebStore.Interfaces.Services;
 
 namespace WebStore.Components;
 
