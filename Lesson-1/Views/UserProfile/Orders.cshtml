@@ -1,0 +1,31 @@
+@model IEnumerable<UserOrderViewModel>
+@{
+    ViewBag.Title = "User Orders";
+    Layout = "_UserProfileLayout";
+    var i = 1;
+}
+<table class="table">
+    <thead>
+    <tr>
+        <th>№</th>
+        <th>Date</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Price</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var order in @Model)
+    {
+        <tr>
+            <td>@(i++)</td>
+            <td>@order.Date.ToString("dd/MM/yy HH:mm")</td>
+            <td>@order.Address</td>
+            <td>@order.Phone</td>
+            <td>@order.TotalPrice</td>
+            <td>@order.Description</td>
+        </tr>
+    }
+    </tbody>
+</table>

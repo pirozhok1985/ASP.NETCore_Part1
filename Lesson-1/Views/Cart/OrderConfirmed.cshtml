@@ -1,0 +1,9 @@
+@{
+    ViewBag.Title = $"Order {ViewBag.OrderId} has been confirmed!";
+    Layout = "_Layout";
+}
+<div class="container">
+    <h2>@ViewBag.Title</h2>
+    <p>Order @ViewBag.OrderId has been formed and will be processed soon!</p>
+    <a asp-controller="Home" asp-action="Index">Home</a>
+</div>

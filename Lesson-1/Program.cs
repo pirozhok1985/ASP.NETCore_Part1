@@ -18,6 +18,7 @@ builder.Services.AddScoped<IEmployeesData, EmployeeDataDB>();
 //builder.Services.AddSingleton<IProductData, ProductDataInMemory>();
 builder.Services.AddScoped<IProductData, ProductDataDB>();
 builder.Services.AddScoped<ICartService,CartServiceCookies>();
+builder.Services.AddScoped<IOrderService, OrderServiceDB>();
 builder.Services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 builder.Services.AddIdentity<User, Role>(opt =>
 {
@@ -68,13 +69,20 @@ if (app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 app.UseRouting();
-app.MapDefaultControllerRoute();
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.UseWelcomePage("/mswelcome");
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
+});
 
 app.Run();
 

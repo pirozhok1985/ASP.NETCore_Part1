@@ -48,4 +48,25 @@ public class ProductDataDB : IProductData
             .Include(p => p.Section)
             .FirstOrDefault(p => p.Id == id);
     }
+
+    public void Edit(Product product)
+    {
+        if (product is null)
+            return;
+        _db.Products.Update(product);
+        _db.SaveChanges();
+    }
+
+    public void Delete(int id)
+    {
+        var product = GetProductById(id);
+        _db.Products.Remove(product);
+        _db.SaveChanges();
+    }
+
+    public void Add(Product product)
+    {
+        _db.Products.Add(product);
+        _db.SaveChanges();
+    }
 }

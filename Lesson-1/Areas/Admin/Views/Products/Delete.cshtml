@@ -1,0 +1,23 @@
+@model ProductViewModel
+
+@{
+    ViewBag.Title = "Remove product form";
+    Layout = "_Layout";
+}
+<form asp-controller="Products" asp-action="Delete" asp-route-id="@Model.Id">
+    <table class="table">
+        <tbody>
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.Name</td>
+            <td>@Model.Section</td>
+            <td>@Model.Brand</td>
+            <td>@Model.Price</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="form-group">
+        <input type="submit" value="Удалить" class="btn btn-default"/>
+    </div>
+    <a asp-controller="Products" asp-action="Index">Back to Products</a>
+</form>
