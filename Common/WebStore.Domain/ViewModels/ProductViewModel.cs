@@ -16,11 +16,9 @@ public class ProductViewModel
     public string ImageUrl { get; set; }
     
     [Required]
-    [CustomValidation(typeof(BrandAndSectionValidator), "ValidateSection")]
     public string Section { get; set; }
     
     [Required]
-    [CustomValidation(typeof(BrandAndSectionValidator), "ValidateBrand")]
     public string? Brand { get; set; }
     public int SectionId { get; set; }
     public int? BrandId { get; set; }

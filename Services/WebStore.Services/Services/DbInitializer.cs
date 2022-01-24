@@ -1,8 +1,7 @@
 ﻿using System.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.VisualBasic;
+using Microsoft.Extensions.Logging;
 using WebStore.DAL.Context;
 using WebStore.Data;
 using WebStore.Domain.Identity;
