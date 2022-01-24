@@ -3,11 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore", "Lesson-1\WebStore.csproj", "{1E70B1FF-A1AE-4873-81B0-30F2D3C650CA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{D32110EC-915C-4714-8397-EBE7249860EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Domain", "WebStore.Domain\WebStore.Domain.csproj", "{3D92C456-B7D4-48D9-91C8-4E5FBF0EC6C3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{D35B010D-014F-49A5-AA9A-F12D51808159}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.DAL", "WebStore.DAL\WebStore.DAL.csproj", "{3E21581D-7B0F-4F96-A044-59CAE79E57CA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A9B20A09-BB45-43DA-B3CA-1B19096EB085}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{867F1F5D-5810-40EE-858F-836F7F4B70F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Domain", "Common\WebStore.Domain\WebStore.Domain.csproj", "{7AE025D1-5134-49F0-B363-DC25FACD3EC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.DAL", "Data\WebStore.DAL\WebStore.DAL.csproj", "{DC97347F-2DF0-4C12-A3A7-C5CDE3CD1A62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore", "UI\WebStore\WebStore.csproj", "{CE833AA1-F29C-4DFC-8BE2-749D3E626F74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,23 +23,28 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1E70B1FF-A1AE-4873-81B0-30F2D3C650CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E70B1FF-A1AE-4873-81B0-30F2D3C650CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E70B1FF-A1AE-4873-81B0-30F2D3C650CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E70B1FF-A1AE-4873-81B0-30F2D3C650CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3D92C456-B7D4-48D9-91C8-4E5FBF0EC6C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D92C456-B7D4-48D9-91C8-4E5FBF0EC6C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D92C456-B7D4-48D9-91C8-4E5FBF0EC6C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D92C456-B7D4-48D9-91C8-4E5FBF0EC6C3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3E21581D-7B0F-4F96-A044-59CAE79E57CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3E21581D-7B0F-4F96-A044-59CAE79E57CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3E21581D-7B0F-4F96-A044-59CAE79E57CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3E21581D-7B0F-4F96-A044-59CAE79E57CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AE025D1-5134-49F0-B363-DC25FACD3EC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AE025D1-5134-49F0-B363-DC25FACD3EC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AE025D1-5134-49F0-B363-DC25FACD3EC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AE025D1-5134-49F0-B363-DC25FACD3EC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC97347F-2DF0-4C12-A3A7-C5CDE3CD1A62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC97347F-2DF0-4C12-A3A7-C5CDE3CD1A62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC97347F-2DF0-4C12-A3A7-C5CDE3CD1A62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC97347F-2DF0-4C12-A3A7-C5CDE3CD1A62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE833AA1-F29C-4DFC-8BE2-749D3E626F74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE833AA1-F29C-4DFC-8BE2-749D3E626F74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE833AA1-F29C-4DFC-8BE2-749D3E626F74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE833AA1-F29C-4DFC-8BE2-749D3E626F74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A1920B27-546A-48E4-B7BF-7FDDA9BBF134}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7AE025D1-5134-49F0-B363-DC25FACD3EC5} = {D32110EC-915C-4714-8397-EBE7249860EB}
+		{DC97347F-2DF0-4C12-A3A7-C5CDE3CD1A62} = {D35B010D-014F-49A5-AA9A-F12D51808159}
+		{CE833AA1-F29C-4DFC-8BE2-749D3E626F74} = {867F1F5D-5810-40EE-858F-836F7F4B70F2}
 	EndGlobalSection
 EndGlobal
