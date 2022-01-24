@@ -1,0 +1,40 @@
+﻿@model IEnumerable<WebStore.Domain.ViewModels.ProductViewModel>
+@{
+    ViewBag.Title = "Products Catalog";
+    Layout = "_Layout";
+}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th></th>
+        <th>@Html.DisplayNameFor(p => p.Id)</th>
+        <th>@Html.DisplayNameFor(p => p.Name)</th>
+        <th>@Html.DisplayNameFor(p => p.Brand)</th>
+        <th>@Html.DisplayNameFor(p => p.Section)</th>
+        <th>@Html.DisplayNameFor(p => p.ImageUrl)</th>
+        <th>@Html.DisplayNameFor(p => p.Price)</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var product in Model!)
+    {
+        <tr>
+            <td>
+                <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
+            </td>
+            <td>@product.Id</td>
+            <td>@product.Name</td>
+            <td>@product.Brand</td>
+            <td>@product.Section</td>
+            <td>@product.ImageUrl</td>
+            <td>@product.Price</td>
+            <td>
+                <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id">Remove</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<a asp-controller="Products" asp-action="Add">Add</a>
