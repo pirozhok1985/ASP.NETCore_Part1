@@ -1,3 +1,5 @@
+using System.Net.Http.Json;
+using WebStore.Domain.ViewModels;
 using WebStore.Interfaces.TestAPI;
 using WebStore.WebAPI.Clients.Base;
 
@@ -9,34 +11,40 @@ public class ValuesClient : BaseClient, IValueService
     {
         
     }
-    private HttpClient _Client;
+   
     public IEnumerable<string> GetValues()
     {
-        throw new NotImplementedException();
+        var response = Http.GetAsync(Address).Result;
+        return response.IsSuccessStatusCode ? response.Content.ReadFromJsonAsync<IEnumerable<string>>().Result : Enumerable.Empty<string>();
     }
 
     public string GetById(int id)
     {
-        throw new NotImplementedException();
+        var response = Http.GetAsync($"{Address}/{id}").Result;
+        return response.IsSuccessStatusCode ? response.Content.ReadFromJsonAsync<string>().Result : String.Empty;
     }
 
     public int Count()
     {
-        throw new NotImplementedException();
+        var response = Http.GetAsync($"{Address}/count").Result;
+        return response.IsSuccessStatusCode ? response.Content.ReadFromJsonAsync<int>().Result : -1;
     }
 
     public void Add(string value)
     {
-        throw new NotImplementedException();
+        var response = Http.PostAsJsonAsync(Address, value).Result;
+        response.EnsureSuccessStatusCode();
     }
-
-    public void Edit(int id)
+    
+    public void Edit(int id, string value)
     {
-        throw new NotImplementedException();
+        var response = Http.PostAsJsonAsync($"{Address}/{id}", value).Result;
+        response.EnsureSuccessStatusCode();
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        var response = Http.DeleteAsync($"{Address}/{id}").Result;
+        response.EnsureSuccessStatusCode();
     }
 }

@@ -6,6 +6,6 @@ public interface IValueService
     string GetById(int id);
     int Count();
     void Add(string value);
-    void Edit(int id);
+    void Edit(int id, string value);
     void Delete(int id);
 }
