@@ -1,9 +1,14 @@
 using WebStore.Interfaces.TestAPI;
+using WebStore.WebAPI.Clients.Base;
 
 namespace WebStore.WebAPI.Clients.Values;
 
-public class ValuesClient : IValueService
+public class ValuesClient : BaseClient, IValueService
 {
+    public ValuesClient(HttpClient client, string address):base(client, "api/values")
+    {
+        
+    }
     private HttpClient _Client;
     public IEnumerable<string> GetValues()
     {
