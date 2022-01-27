@@ -5,7 +5,6 @@ using WebStore.Domain.Identity;
 using WebStore.Infrastructure.Conventions;
 using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestAPI;
-using WebStore.Services;
 using WebStore.Services.Services;
 using WebStore.Services.Services.Cookies;
 using WebStore.Services.Services.Database;
@@ -22,7 +21,7 @@ builder.Services.AddScoped<IEmployeesData, EmployeeDataDB>();
 builder.Services.AddScoped<IProductData, ProductDataDB>();
 builder.Services.AddScoped<ICartService,CartServiceCookies>();
 builder.Services.AddScoped<IOrderService, OrderServiceDB>();
-builder.Services.AddHttpClient<IValueService,ValuesClient>(client => client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("WebAPI")));
+builder.Services.AddHttpClient<IValueService,ValuesClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
 builder.Services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 builder.Services.AddIdentity<User, Role>(opt =>
 {
