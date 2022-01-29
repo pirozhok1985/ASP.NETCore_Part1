@@ -16,7 +16,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
 builder.Services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 builder.Services.AddTransient<IDbInitializer, DbInitializer>();
 builder.Services.AddIdentity<User, Role>(opt =>
@@ -43,6 +42,8 @@ builder.Services.AddScoped<IEmployeesData, EmployeeDataDB>();
 builder.Services.AddScoped<IProductData, ProductDataDB>();
 // builder.Services.AddScoped<ICartService,CartServiceCookies>();
 builder.Services.AddScoped<IOrderService, OrderServiceDB>();
+
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

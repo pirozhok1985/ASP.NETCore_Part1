@@ -46,7 +46,7 @@ public class EmployeesApiController : Controller
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        _employeesData.Delete(id);
-        return Ok();
+        var result = _employeesData.Delete(id);
+        return result ? Ok(true) : NotFound(false);
     }
 }

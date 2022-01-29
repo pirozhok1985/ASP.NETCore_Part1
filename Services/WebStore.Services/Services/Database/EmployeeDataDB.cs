@@ -34,10 +34,10 @@ public class EmployeeDataDB : IEmployeesData
         _db.SaveChanges();
     }
 
-    public void Delete(int id)
+    public bool Delete(int id)
     {
         var employee = _db.Employees.FirstOrDefault(e => e.Id == id);
-        _db.Employees.Remove(employee);
-        _db.SaveChanges();
+        var result = _db.SaveChanges();
+        return result != 0 ? true : false;
     }
 }

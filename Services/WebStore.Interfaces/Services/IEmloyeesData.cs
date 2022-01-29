@@ -8,6 +8,6 @@ public interface IEmployeesData
     public Employee? GetEmployeeById(int id);
     public int Add(Employee employee);
     public void Edit(Employee employee);
-    public void Delete(int id);
+    public bool Delete(int id);
 }
 
