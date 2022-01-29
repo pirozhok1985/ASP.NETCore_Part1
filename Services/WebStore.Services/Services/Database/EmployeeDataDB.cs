@@ -16,7 +16,7 @@ public class EmployeeDataDB : IEmployeesData
         _logger = logger;
     }
 
-    public IEnumerable<Employee> GetAllEmployees() => _db.Employees;
+    public IEnumerable<Employee>? GetAllEmployees() => _db.Employees;
 
     public Employee? GetEmployeeById(int id) => _db.Employees.Find(id);
 
