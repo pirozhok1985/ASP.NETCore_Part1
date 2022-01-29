@@ -17,7 +17,7 @@ builder.Services.AddControllersWithViews(param =>
     param.Conventions.Add(new TestConvention());
 });
 // builder.Services.AddSingleton<IEmployeesData,EmployeeDataInMemory>();
-builder.Services.AddScoped<IEmployeesData, EmployeeDataDB>();
+// builder.Services.AddScoped<IEmployeesData, EmployeeDataDb>();
 //builder.Services.AddSingleton<IProductData, ProductDataInMemory>();
 builder.Services.AddScoped<IProductData, ProductDataDB>();
 builder.Services.AddScoped<ICartService,CartServiceCookies>();

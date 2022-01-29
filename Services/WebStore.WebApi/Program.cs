@@ -38,7 +38,7 @@ builder.Services.AddIdentity<User, Role>(opt =>
 
 }).AddEntityFrameworkStores<WebStoreDB>().AddDefaultTokenProviders();
 
-builder.Services.AddScoped<IEmployeesData, EmployeeDataDB>();
+builder.Services.AddScoped<IEmployeesData, EmployeeDataDb>();
 builder.Services.AddScoped<IProductData, ProductDataDB>();
 // builder.Services.AddScoped<ICartService,CartServiceCookies>();
 builder.Services.AddScoped<IOrderService, OrderServiceDB>();
