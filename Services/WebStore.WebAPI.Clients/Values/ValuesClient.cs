@@ -12,13 +12,13 @@ public class ValuesClient : BaseClient, IValueService
         
     }
    
-    public IEnumerable<string> GetValues()
+    public IEnumerable<string>? GetValues()
     {
         var response = Http.GetAsync(Address).Result;
         return response.IsSuccessStatusCode ? response.Content.ReadFromJsonAsync<IEnumerable<string>>().Result : Enumerable.Empty<string>();
     }
 
-    public string GetById(int id)
+    public string? GetById(int id)
     {
         var response = Http.GetAsync($"{Address}/{id}").Result;
         return response.IsSuccessStatusCode ? response.Content.ReadFromJsonAsync<string>().Result : String.Empty;
