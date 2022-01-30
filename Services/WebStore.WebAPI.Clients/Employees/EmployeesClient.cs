@@ -25,10 +25,8 @@ public class EmployeesClient : BaseClient, IEmployeesData
         return desResult.Id;
     }
 
-    public void Edit(Employee employee)
-    {
-        var response = Put(Address, employee);
-    }
+    public void Edit(Employee employee) =>  Put(Address, employee);
+
 
     public bool Delete(int id)
     {

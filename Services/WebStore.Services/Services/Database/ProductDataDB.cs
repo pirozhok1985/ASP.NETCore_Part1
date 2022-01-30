@@ -18,9 +18,9 @@ public class ProductDataDB : IProductData
         _logger = logger;
     }
 
-    public IEnumerable<Brand> GetBrands() => _db.Brands;
+    public IEnumerable<Brand>? GetBrands() => _db.Brands;
 
-    public IEnumerable<Section> GetSections() => _db.Sections;
+    public IEnumerable<Section>? GetSections() => _db.Sections;
 
     public IEnumerable<Product?> GetProducts(ProductFilter? filter = null)
     {
@@ -58,11 +58,12 @@ public class ProductDataDB : IProductData
         _db.SaveChanges();
     }
 
-    public void Delete(int id)
+    public bool Delete(int id)
     {
         var product = GetProductById(id);
         _db.Products.Remove(product);
-        _db.SaveChanges();
+        var result = _db.SaveChanges();
+        return result != 0 ? true : false;
     }
 
     public void Add(Product product)

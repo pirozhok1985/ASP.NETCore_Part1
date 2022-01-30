@@ -8,7 +8,7 @@ namespace WebStore.Components;
 
 public class SectionsViewComponent : ViewComponent
 {
-    private readonly IEnumerable<Section> _Sections;
+    private readonly IEnumerable<Section>? _Sections;
 
     public SectionsViewComponent(IProductData data)
     {
