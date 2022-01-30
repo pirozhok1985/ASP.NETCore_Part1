@@ -23,10 +23,16 @@ builder.Services.AddControllersWithViews(param =>
 // builder.Services.AddScoped<IProductData, ProductDataDB>();
 builder.Services.AddScoped<ICartService,CartServiceCookies>();
 // builder.Services.AddScoped<IOrderService, OrderServiceDB>();
-builder.Services.AddHttpClient<IValueService,ValuesClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
-builder.Services.AddHttpClient<IEmployeesData,EmployeesClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
-builder.Services.AddHttpClient<IProductData,ProductsClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
-builder.Services.AddHttpClient<IOrderService,OrdersClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
+// builder.Services.AddHttpClient<IValueService,ValuesClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
+// builder.Services.AddHttpClient<IEmployeesData,EmployeesClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
+// builder.Services.AddHttpClient<IProductData,ProductsClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
+// builder.Services.AddHttpClient<IOrderService,OrdersClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
+builder.Services.AddHttpClient("WebStoreClient", client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]))
+    .AddTypedClient<IValueService, ValuesClient>()
+    .AddTypedClient<IEmployeesData, EmployeesClient>()
+    .AddTypedClient<IProductData, ProductsClient>()
+    .AddTypedClient<IOrderService, OrdersClient>();
+
 builder.Services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 builder.Services.AddIdentity<User, Role>(opt =>
 {
