@@ -33,7 +33,7 @@ public static class ProductMapper
         };
     
 
-    public static IEnumerable<ProductViewModel?> ToView(this IEnumerable<Product?> products) =>
+    public static IEnumerable<ProductViewModel?> ToView(this IEnumerable<Product?>? products) =>
         products.Select(p => p.ToView());
     public static IEnumerable<Product?> FromView(this IEnumerable<ProductViewModel?> products) =>
         products.Select(p => p.FromView());

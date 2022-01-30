@@ -3,11 +3,11 @@ using WebStore.Interfaces.TestAPI;
 
 namespace WebStore.Controllers;
 
-public class WebAPIController : Controller
+public class WebApiController : Controller
 {
     private readonly IValueService _valueService;
 
-    public WebAPIController(IValueService valueService)
+    public WebApiController(IValueService valueService)
     {
         _valueService = valueService;
     }

@@ -7,7 +7,7 @@ namespace WebStore.Components;
 
 public class BrandsViewComponent : ViewComponent
 {
-    private readonly IEnumerable<Brand> _Brands;
+    private readonly IEnumerable<Brand>? _Brands;
     public BrandsViewComponent(IProductData brands)
     {
         _Brands = brands.GetBrands();
