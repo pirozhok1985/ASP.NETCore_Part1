@@ -7,8 +7,8 @@ using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestAPI;
 using WebStore.Services.Services;
 using WebStore.Services.Services.Cookies;
-using WebStore.Services.Services.Database;
 using WebStore.WebAPI.Clients.Employees;
+using WebStore.WebAPI.Clients.Orders;
 using WebStore.WebAPI.Clients.Products;
 using WebStore.WebAPI.Clients.Values;
 
@@ -22,10 +22,11 @@ builder.Services.AddControllersWithViews(param =>
 //builder.Services.AddSingleton<IProductData, ProductDataInMemory>();
 // builder.Services.AddScoped<IProductData, ProductDataDB>();
 builder.Services.AddScoped<ICartService,CartServiceCookies>();
-builder.Services.AddScoped<IOrderService, OrderServiceDB>();
+// builder.Services.AddScoped<IOrderService, OrderServiceDB>();
 builder.Services.AddHttpClient<IValueService,ValuesClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
 builder.Services.AddHttpClient<IEmployeesData,EmployeesClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
 builder.Services.AddHttpClient<IProductData,ProductsClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
+builder.Services.AddHttpClient<IOrderService,OrdersClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
 builder.Services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 builder.Services.AddIdentity<User, Role>(opt =>
 {

@@ -37,7 +37,7 @@ public class CartController : Controller
                 CartViewModel = _cartService.GetCartViewModel(),
                 OrderViewModel = orderViewModel
             });
-        var order = await orderService.CreateNewOrder
+        var order = await orderService.CreateNewOrderAsync
         (
             User.Identity.Name,
             _cartService.GetCartViewModel(),

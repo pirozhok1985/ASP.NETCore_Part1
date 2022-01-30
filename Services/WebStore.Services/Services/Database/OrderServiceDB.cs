@@ -23,7 +23,7 @@ public class OrderServiceDB : IOrderService
          return await _db.Orders
             .Include(o => o.User)
             .Include(o => o.Items)
-            // .ThenInclude(i => i.Order)
+            .ThenInclude(i => i.Product)
             .Where(o => o.User.UserName == userName)
             .ToArrayAsync(cancellationToken)
             .ConfigureAwait(false);
@@ -39,7 +39,7 @@ public class OrderServiceDB : IOrderService
             .ConfigureAwait(false);
     }
 
-    public async Task<Order> CreateNewOrder(string userName, CartViewModel cartViewModel, OrderViewModel orderViewModel,
+    public async Task<Order> CreateNewOrderAsync(string userName, CartViewModel cartViewModel, OrderViewModel orderViewModel,
         CancellationToken cancellationToken = default)
     {
         var user = await _userManager.FindByNameAsync(userName).ConfigureAwait(false);
