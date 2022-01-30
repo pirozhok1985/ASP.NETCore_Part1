@@ -68,7 +68,16 @@ public class ProductDataDB : IProductData
 
     public void Add(Product product)
     {
-        _db.Products.Add(product);
+        _db.Products.Add(new Product
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Order = product.Order,
+            Price = product.Price,
+            ImageUrl = product.ImageUrl,
+            BrandId = product.BrandId,
+            SectionId = product.SectionId,
+        });
         _db.SaveChanges();
     }
 }

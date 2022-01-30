@@ -7,7 +7,7 @@ namespace WebStore.WebApi.Controllers;
 
 [ApiController]
 [Route("api/employees")] //http://localhost:5071/api/employees
-public class EmployeesApiController : Controller
+public class EmployeesApiController : ControllerBase
 {
     private readonly IEmployeesData _employeesData;
 
