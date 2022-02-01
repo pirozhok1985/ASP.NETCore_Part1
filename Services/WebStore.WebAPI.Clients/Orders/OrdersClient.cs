@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.DTO;
 using WebStore.Domain.Entities.Orders;
 using WebStore.Domain.ViewModels;
+using WebStore.Interfaces;
 using WebStore.Interfaces.Services;
 using WebStore.WebAPI.Clients.Base;
 
@@ -10,7 +11,7 @@ namespace WebStore.WebAPI.Clients.Orders;
 
 public class OrdersClient : BaseClient, IOrderService
 {
-    public OrdersClient(HttpClient client) : base(client, "api/orders")
+    public OrdersClient(HttpClient client) : base(client, WebApiAddress.Orders)
     {
     }
 

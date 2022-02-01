@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain;
 using WebStore.Domain.DTO;
+using WebStore.Interfaces;
 using WebStore.Interfaces.Services;
 
 namespace WebStore.WebApi.Controllers;
 
 [ApiController]
-[Route("api/products")]
+[Route(WebApiAddress.Products)]
 public class ProductsApiController : ControllerBase
 {
     private readonly IProductData _productData;
