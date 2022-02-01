@@ -42,7 +42,7 @@ public class ProductsApiController : ControllerBase
     [HttpPost("new")]    
     public IActionResult Add(ProductDto product)
     {
-        _productData.Add(product!.FromDto()!);
+        _productData.Add(product.FromDto()!);
         return CreatedAtAction(nameof(GetProductById), new {product.Id}, product);
     }
 
