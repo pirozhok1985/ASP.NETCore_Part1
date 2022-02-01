@@ -15,7 +15,7 @@ public abstract class BaseClient : IDisposable
     }
 
     protected T? Get<T>(string url) => GetAsync<T>(url).Result;
-    protected async Task<T?> GetAsync<T>(string url)
+    protected async Task<T?> GetAsync<T>(string url, CancellationToken cancellationToken = default)
     {
         var response = await Http.GetAsync(url).ConfigureAwait(false);
         return await response
@@ -26,14 +26,14 @@ public abstract class BaseClient : IDisposable
     }
 
     protected HttpResponseMessage? Post<T>(string url, T value) => PostAsync(url, value).Result;
-    protected async Task<HttpResponseMessage?> PostAsync<T>(string url, T value)
+    protected async Task<HttpResponseMessage?> PostAsync<T>(string url, T value, CancellationToken cancellationToken = default)
     {
         var response = await Http.PostAsJsonAsync(url, value).ConfigureAwait(false);
         return response.EnsureSuccessStatusCode();
     }
     
     protected HttpResponseMessage? Put<T>(string url, T value) => PutAsync(url, value).Result;
-    protected async Task<HttpResponseMessage?> PutAsync<T>(string url, T value)
+    protected async Task<HttpResponseMessage?> PutAsync<T>(string url, T value, CancellationToken cancellationToken = default)
     {
         var response = await Http.PutAsJsonAsync(url, value).ConfigureAwait(false);
         return response.EnsureSuccessStatusCode();
