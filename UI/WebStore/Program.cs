@@ -8,6 +8,7 @@ using WebStore.Interfaces.TestAPI;
 using WebStore.Services.Services;
 using WebStore.Services.Services.Cookies;
 using WebStore.WebAPI.Clients.Employees;
+using WebStore.WebAPI.Clients.Identity;
 using WebStore.WebAPI.Clients.Orders;
 using WebStore.WebAPI.Clients.Products;
 using WebStore.WebAPI.Clients.Values;
@@ -34,7 +35,21 @@ builder.Services.AddHttpClient("WebStoreClient", client => client.BaseAddress = 
     .AddTypedClient<IOrderService, OrdersClient>();
 
 builder.Services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
-builder.Services.AddIdentity<User, Role>(opt =>
+builder.Services.AddTransient<IDbInitializer, DbInitializer>();
+builder.Services.AddIdentity<User, Role>().AddDefaultTokenProviders();
+builder.Services.AddHttpClient("WebStoreIdentityClient",
+        client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]))
+    .AddTypedClient<IUserClaimStore<User>, UserClient>()
+    .AddTypedClient<IUserEmailStore<User>, UserClient>()
+    .AddTypedClient<IUserPasswordStore<User>, UserClient>()
+    .AddTypedClient<IUserLockoutStore<User>, UserClient>()
+    .AddTypedClient<IUserPhoneNumberStore<User>, UserClient>()
+    .AddTypedClient<IUserRoleStore<User>, UserClient>()
+    .AddTypedClient<IUserStore<User>, UserClient>()
+    .AddTypedClient<IUserLoginStore<User>, UserClient>()
+    .AddTypedClient<IRoleStore<Role>, RoleClient>();
+
+builder.Services.Configure<IdentityOptions>(opt =>
 {
 #if DEBUG
     opt.Password.RequireDigit = false;
@@ -51,9 +66,8 @@ builder.Services.AddIdentity<User, Role>(opt =>
     opt.Lockout.AllowedForNewUsers = false;
     opt.Lockout.MaxFailedAccessAttempts = 10;
     opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+});
 
-}).AddEntityFrameworkStores<WebStoreDB>().AddDefaultTokenProviders();
-builder.Services.AddTransient<IDbInitializer, DbInitializer>();
 builder.Services.ConfigureApplicationCookie(opt =>
 {
     opt.Cookie.Name = "WebStore.GB";
@@ -67,11 +81,10 @@ builder.Services.ConfigureApplicationCookie(opt =>
 });
 
 var app = builder.Build();
-await using (var db_scope = app.Services.CreateAsyncScope())
+await using (var dbScope = app.Services.CreateAsyncScope())
 {
-    var dbInitializer = db_scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-    var token = new CancellationToken(false);
-    await dbInitializer.InitializeAsync(false, token);
+    var dbInitializer = dbScope.ServiceProvider.GetRequiredService<IDbInitializer>();
+    await dbInitializer.InitializeAsync(false).ConfigureAwait(false);
 }
 
 

@@ -3,6 +3,6 @@ using WebStore.Domain.Identity;
 
 namespace WebStore.Interfaces.Services.Identity;
 
-public interface IRoleClent : IRoleStore<Role>
+public interface IRoleClient : IQueryableRoleStore<Role>
 {
 }

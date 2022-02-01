@@ -3,6 +3,6 @@
 public interface IDbInitializer
 {
     Task RemoveAsync(CancellationToken token);
-    Task InitializeAsync(bool removeBeforeInit, CancellationToken token); 
+    Task InitializeAsync(bool removeBeforeInit, CancellationToken token = default); 
 }
 
