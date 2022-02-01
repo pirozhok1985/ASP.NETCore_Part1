@@ -2,8 +2,9 @@ using System.Net.Http.Json;
 
 namespace WebStore.WebAPI.Clients.Base;
 
-public abstract class BaseClient
+public abstract class BaseClient : IDisposable
 {
+    private bool _disposed = false;
     protected HttpClient Http { get; }
     protected string Address { get; }
 
@@ -43,5 +44,23 @@ public abstract class BaseClient
     {
         var response = await Http.DeleteAsync(url).ConfigureAwait(false);
         return response.EnsureSuccessStatusCode();
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        // GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!this._disposed)
+        {
+            if(disposing)
+                this.Dispose();
+            // Clean unmanaged resources
+        }
+
+        _disposed = true;
     }
 }
