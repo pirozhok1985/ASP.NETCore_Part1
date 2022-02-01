@@ -71,8 +71,8 @@ public class UserApiController : ControllerBase
         //[HttpDelete] // DELETE api/v1/users
         public async Task<bool> DeleteAsync([FromBody] User user)
         {
-            var delete_result = await _userStore.DeleteAsync(user);
-            return delete_result.Succeeded;
+            var deleteResult = await _userStore.DeleteAsync(user);
+            return deleteResult.Succeeded;
         }
 
         [HttpGet("User/Find/{id}")] // api/v1/users/user/Find/9E5CB5E7-41DE-4449-829E-45F4C97AA54B
