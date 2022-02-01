@@ -18,7 +18,7 @@ public class PasswordHashDto : UserDto
     public string Hash { get; set; }
 }
 
-public class LockOutDto : UserDto
+public class LockoutDto : UserDto
 {
-    public DateTimeOffset LockoutEndTime { get; set; }
+    public DateTimeOffset? LockoutEndTime { get; set; }
 }
