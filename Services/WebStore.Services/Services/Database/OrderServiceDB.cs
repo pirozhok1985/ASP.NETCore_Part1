@@ -34,7 +34,7 @@ public class OrderServiceDB : IOrderService
         return await _db.Orders
             .Include(o => o.User)
             .Include(o => o.Items)
-            .ThenInclude(i => i.Order)
+            .ThenInclude(i => i.Product)
             .FirstOrDefaultAsync(o => o.Id == orderId, cancellationToken)
             .ConfigureAwait(false);
     }
