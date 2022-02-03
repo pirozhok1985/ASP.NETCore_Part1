@@ -14,14 +14,19 @@ public class EmployeesApiController : ControllerBase
 
     public EmployeesApiController(IEmployeesData employeesData) => _employeesData = employeesData;
 
+    ///<summary>Get all employeess</summary>
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK,Type = typeof(IEnumerable<Employee>))]
     public IActionResult Get()
     {
         var employees = _employeesData.GetAllEmployees();
         return Ok(employees);
     }
 
+    ///<summary>Get employee by id</summary>
     [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK,Type = typeof(Employee))]
     public IActionResult GetById(int id)
     {
         var employee = _employeesData.GetEmployeeById(id);
@@ -30,21 +35,28 @@ public class EmployeesApiController : ControllerBase
         return Ok(employee);
     }
 
+    ///<summary>Add new employee</summary>
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     public IActionResult Add(Employee employee)
     {
         var id = _employeesData.Add(employee);
         return CreatedAtAction(nameof(GetById), new {Id = id},employee);
     }
 
+    ///<summary>Edit employee</summary>
     [HttpPut]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public IActionResult Update(Employee employee)
     {
         _employeesData.Edit(employee);
         return Ok();
     }
 
+    ///<summary>Delete employee by id</summary>
     [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK,Type = typeof(bool))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Delete(int id)
     {
         var result = _employeesData.Delete(id);
