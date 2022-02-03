@@ -7,11 +7,11 @@ public abstract class ClaimDTO : UserDTO
     public IEnumerable<Claim> Claims { get; set; }
 }
 
-public class AddClaimDTO : ClaimDTO { }
+public class AddClaimDto : ClaimDTO { }
 
-public class RemoveClaimDTO : ClaimDTO { }
+public class RemoveClaimDto : ClaimDTO { }
 
-public class ReplaceClaimDTO : UserDTO
+public class ReplaceClaimDto : UserDTO
 {
     public Claim Claim { get; set; }
 
