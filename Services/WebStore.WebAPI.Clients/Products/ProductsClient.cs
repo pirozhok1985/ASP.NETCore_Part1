@@ -4,13 +4,14 @@ using WebStore.Domain;
 using WebStore.Domain.DTO;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces.Services;
+using WebStore.Services;
 using WebStore.WebAPI.Clients.Base;
 
 namespace WebStore.WebAPI.Clients.Products;
 
 public class ProductsClient : BaseClient, IProductData
 {
-    public ProductsClient(HttpClient client) : base(client, "api/products")
+    public ProductsClient(HttpClient client) : base(client, WebAddresses.Products)
     {
     }
 

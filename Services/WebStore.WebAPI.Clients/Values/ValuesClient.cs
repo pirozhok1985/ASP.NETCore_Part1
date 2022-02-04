@@ -1,13 +1,14 @@
 using System.Net.Http.Json;
 using WebStore.Domain.ViewModels;
 using WebStore.Interfaces.TestAPI;
+using WebStore.Services;
 using WebStore.WebAPI.Clients.Base;
 
 namespace WebStore.WebAPI.Clients.Values;
 
 public class ValuesClient : BaseClient, IValueService
 {
-    public ValuesClient(HttpClient client):base(client, "api/values")
+    public ValuesClient(HttpClient client):base(client, WebAddresses.Values)
     {
         
     }

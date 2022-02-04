@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using WebStore.DAL.Migrations;
 using WebStore.Interfaces.Services;
+using WebStore.Services;
 using Employee = WebStore.Domain.Entities.Employee;
 
 namespace WebStore.WebApi.Controllers;
 
 [ApiController]
-[Route("api/employees")] //http://localhost:5071/api/employees
+[Route(WebAddresses.Employees)] //http://localhost:5071/api/employees
 public class EmployeesApiController : ControllerBase
 {
     private readonly IEmployeesData _employeesData;
