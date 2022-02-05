@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Serilog.Events;
 using Serilog.Formatting.Json;
 using WebStore.DAL.Context;
 using WebStore.Domain.Identity;
 using WebStore.Infrastructure.Conventions;
+using WebStore.Infrastructure.Middleware;
 using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestAPI;
 using WebStore.Logging;
@@ -92,9 +92,9 @@ builder.Services.ConfigureApplicationCookie(opt =>
 });
 
 var app = builder.Build();
-await using (var db_scope = app.Services.CreateAsyncScope())
+await using (var dbScope = app.Services.CreateAsyncScope())
 {
-    var dbInitializer = db_scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+    var dbInitializer = dbScope.ServiceProvider.GetRequiredService<IDbInitializer>();
     var token = new CancellationToken(false);
     await dbInitializer.InitializeAsync(false, token);
 }
@@ -110,6 +110,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<MiddlewareExceptionHandling>();
 app.UseWelcomePage("/mswelcome");
 app.UseEndpoints(endpoints =>
 {
