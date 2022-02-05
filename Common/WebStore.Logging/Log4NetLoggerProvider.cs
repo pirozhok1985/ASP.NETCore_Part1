@@ -18,10 +18,9 @@ public class Log4NetLoggerProvider : ILoggerProvider
         return _loggers.GetOrAdd(category, (categoryName, configFile) =>
         {
             var xml = new XmlDocument();
-            xml.LoadXml(configFile);
+            xml.Load(configFile);
             return new Log4NetLogger(categoryName, xml["log4net"]!);
         }, _configurationFile);
-        
     }
 
     public void Dispose() => _loggers.Clear();

@@ -5,6 +5,7 @@ using WebStore.Domain.Identity;
 using WebStore.Infrastructure.Conventions;
 using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestAPI;
+using WebStore.Logging;
 using WebStore.Services.Services;
 using WebStore.Services.Services.Cookies;
 using WebStore.WebAPI.Clients.Employees;
@@ -14,6 +15,7 @@ using WebStore.WebAPI.Clients.Products;
 using WebStore.WebAPI.Clients.Values;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.AddLog4Net();
 builder.Services.AddControllersWithViews(param =>
 {
     param.Conventions.Add(new TestConvention());

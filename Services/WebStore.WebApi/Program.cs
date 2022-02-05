@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
 using WebStore.Domain.Identity;
 using WebStore.Interfaces.Services;
+using WebStore.Logging;
 using WebStore.Services.Services;
-using WebStore.Services.Services.Cookies;
 using WebStore.Services.Services.Database;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Logging.AddLog4Net();
 // Add services to the container.
 
 builder.Services.AddControllers();
