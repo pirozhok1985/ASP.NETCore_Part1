@@ -6,6 +6,7 @@ using Serilog.Formatting.Json;
 using WebStore.DAL.Context;
 using WebStore.Domain.Identity;
 using WebStore.Infrastructure.Conventions;
+using WebStore.Infrastructure.Middleware;
 using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestAPI;
 using WebStore.Logging;
@@ -110,6 +111,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<MiddlewareExceptionHandling>();
 app.UseWelcomePage("/mswelcome");
 app.UseEndpoints(endpoints =>
 {
