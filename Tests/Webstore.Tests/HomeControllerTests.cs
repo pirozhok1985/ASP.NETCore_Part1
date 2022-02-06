@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -35,4 +36,13 @@ public class HomeControllerTests
         Assert.IsType<ContentResult>(resultValue);
     }
 
+    [TestMethod]
+    public void ThrowGeneratesApplicationExceptionWithMessage()
+    {
+        var message = "Test Message";
+        var controller = new HomeController();
+        var actualException = Assert.Throws<ApplicationException>( () => controller.Throw(message));
+        
+        Assert.Equal(message,actualException.Message);
+    }
 }
