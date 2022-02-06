@@ -1,10 +1,14 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Serilog.Formatting.Json;
 using WebStore.DAL.Context;
 using WebStore.Domain.Identity;
 using WebStore.Infrastructure.Conventions;
+using WebStore.Infrastructure.Middleware;
 using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestAPI;
+using WebStore.Logging;
 using WebStore.Services.Services;
 using WebStore.Services.Services.Cookies;
 using WebStore.WebAPI.Clients.Employees;
@@ -14,6 +18,14 @@ using WebStore.WebAPI.Clients.Products;
 using WebStore.WebAPI.Clients.Values;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.AddLog4Net();
+builder.Host.UseSerilog((host, loggerConfig) => loggerConfig.ReadFrom.Configuration(host.Configuration)
+    // .MinimumLevel.Debug()
+    // .MinimumLevel.Override("Microsoft",LogEventLevel.Warning)
+    // .Enrich.FromLogContext()
+    // .WriteTo.Console(outputTemplate:"[{Timestamp:HH:mm:ss.fff} {Level:u3}]{SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}")
+    // .WriteTo.RollingFile($@".\Logs\WebStore[{DateTime.Now:yyyy-MM-ddTHH-mm-ss}].log")
+    .WriteTo.File(new JsonFormatter(",",true),$@".\Logs\WebStore[{DateTime.Now:yyyy-MM-ddTHH-mm-ss}].log.json"));
 builder.Services.AddControllersWithViews(param =>
 {
     param.Conventions.Add(new TestConvention());
@@ -80,9 +92,9 @@ builder.Services.ConfigureApplicationCookie(opt =>
 });
 
 var app = builder.Build();
-await using (var db_scope = app.Services.CreateAsyncScope())
+await using (var dbScope = app.Services.CreateAsyncScope())
 {
-    var dbInitializer = db_scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+    var dbInitializer = dbScope.ServiceProvider.GetRequiredService<IDbInitializer>();
     var token = new CancellationToken(false);
     await dbInitializer.InitializeAsync(false, token);
 }
@@ -98,6 +110,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<MiddlewareExceptionHandling>();
 app.UseWelcomePage("/mswelcome");
 app.UseEndpoints(endpoints =>
 {
