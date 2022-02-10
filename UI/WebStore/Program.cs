@@ -34,7 +34,8 @@ builder.Services.AddControllersWithViews(param =>
 // builder.Services.AddScoped<IEmployeesData, EmployeeDataDb>();
 //builder.Services.AddSingleton<IProductData, ProductDataInMemory>();
 // builder.Services.AddScoped<IProductData, ProductDataDB>();
-builder.Services.AddScoped<ICartService,CartServiceCookies>();
+builder.Services.AddScoped<ICartService,CartService>();
+builder.Services.AddScoped<ICartStore,CartStoreCookies>();
 // builder.Services.AddScoped<IOrderService, OrderServiceDB>();
 // builder.Services.AddHttpClient<IValueService,ValuesClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
 // builder.Services.AddHttpClient<IEmployeesData,EmployeesClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
