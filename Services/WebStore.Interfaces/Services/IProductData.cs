@@ -9,6 +9,8 @@ public interface IProductData
     public IEnumerable<Section>? GetSections();
     public IEnumerable<Product?>? GetProducts(ProductFilter? filter = null);
     public Product? GetProductById(int id);
+    public Section? GetSectionById(int? id);
+    public Brand? GetBrandById(int id);
     public void Edit(Product product);
     public bool Delete(int id);
     public void Add(Product product);

@@ -12,7 +12,7 @@ public class Section : NamedEntity, IOrderedEntity
     public int? ParentId { get; set; } = null;
 
     [ForeignKey(nameof(ParentId))]
-    public Section Parent { get; set; }
+    public Section? Parent { get; set; }
 
     public ICollection<Product> Products { get; set; }
 }

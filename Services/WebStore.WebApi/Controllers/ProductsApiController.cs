@@ -32,11 +32,24 @@ public class ProductsApiController : ControllerBase
         var result = _productData.GetBrands();
         return Ok(result?.ToDto());
     }
+    [HttpGet("Brands/{id}")]
+    public IActionResult GetBrandById(int id)
+    {
+        var result = _productData.GetBrandById(id);
+        return Ok(result?.ToDto());
+    }
     
     [HttpGet("Sections")]
     public IActionResult GetSections()
     {
         var result = _productData.GetSections();
+        return Ok(result?.ToDto());
+    }
+    
+    [HttpGet("Sections/{id}")]
+    public IActionResult GetSectionById(int id)
+    {
+        var result = _productData.GetSectionById(id);
         return Ok(result?.ToDto());
     }
 
