@@ -12,7 +12,12 @@ public class BrandsViewComponent : ViewComponent
     {
         _Brands = brands.GetBrands();
     }
-    public IViewComponentResult Invoke() => View(GetBrands());
+
+    public IViewComponentResult Invoke(string brandId)
+    {
+        ViewBag.brandId = (int.TryParse(brandId, out var id) ? id : (int?) null)!;
+        return View(GetBrands());
+    }
 
     private IEnumerable<BrandViewModel> GetBrands() => _Brands.OrderBy(b => b.Order).Select(b => new BrandViewModel
     {
