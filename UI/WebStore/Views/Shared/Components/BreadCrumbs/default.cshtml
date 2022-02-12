@@ -3,9 +3,13 @@
 <div class="breadcrumbs">
     <ol class="breadcrumb">
         <li>
-            <a href="#">Home</a>
+            <a asp-controller="Home" asp-action="Index">Home</a>
         </li>
-        <li class="active"><a>Shop</a></li>
+        <li class="active">
+            <a asp-controller="Shop" asp-action="Index">
+                Shop
+            </a>
+        </li>
         @if (Model!.Section is {Id: var childSectionId, Name: var childSectionName} childSection)
         {
             @if (childSection.Parent is {Id: var parentSectionId, Name: var parentSectionName})
@@ -33,7 +37,7 @@
 
         @if (Model.ProductName is {Length: > 0} productName)
         {
-            <li><a>@productName</a></li>
+            <li>@productName</li>
         }
     </ol>
 </div>
