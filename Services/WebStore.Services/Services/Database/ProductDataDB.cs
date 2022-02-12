@@ -22,6 +22,17 @@ public class ProductDataDB : IProductData
 
     public IEnumerable<Section>? GetSections() => _db.Sections;
 
+    public Section? GetSectionById(int? sectionId)
+    {
+        var result = _db.Sections!.Find(sectionId);
+        return _db.Sections!.FirstOrDefault(s => s.Id == sectionId);
+    }
+
+    public Brand? GetBrandById(int brandId)
+    {
+        return _db.Brands!.FirstOrDefault(b => b.Id == brandId);
+    }
+
     public IEnumerable<Product?> GetProducts(ProductFilter? filter = null)
     {
         IQueryable<Product> query = _db.Products

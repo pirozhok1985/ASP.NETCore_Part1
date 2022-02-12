@@ -2,10 +2,14 @@
 <div class="brands_products"><!--brands_products-->
     <h2>Brands</h2>
     <div class="brands-name">
-        @foreach (var brend in Model)
+        @foreach (var brand in Model)
         {
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="#"> <span class="pull-right">(4)</span>@brend.Name</a></li>
+                <li @(brand.Id == ViewBag.brandId ? "class=active" : null)>
+                    <a asp-controller="Shop" asp-action="Index" asp-route-brandId="@brand.Id">
+                        <span class="pull-right">(4)</span>@brand.Name
+                    </a>
+                </li>
             </ul>
         }
     </div>

@@ -1,50 +1,63 @@
 ﻿<div class="mainmenu pull-left">
     <ul class="nav navbar-nav collapse navbar-collapse">
         <li>
-            <a asp-controller="Home" asp-action="Index" class="active">Home</a>
+            <a ws-is-active-route asp-controller="Home" asp-action="Index" class="active">Home</a>
         </li>
         <li class="dropdown">
-            <a asp-controller="Shop" asp-action="Index">Shop<i class="fa fa-angle-down"></i></a>
+            <a ws-is-active-route ws-ignore-action asp-controller="Shop" asp-action="Index">Shop<i class="fa fa-angle-down"></i></a>
             <ul role="menu" class="sub-menu">
                 <li>
-                    <a asp-controller="Shop" asp-action="Index">Products</a>
+                    <a ws-is-active-route asp-controller="Shop" asp-action="Index">Products</a>
                 </li>
                 <li>
-                    <a asp-controller="Shop" asp-action="Details">Product Details</a>
+                    <a ws-is-active-route asp-controller="Shop" asp-action="Details">Product Details</a>
                 </li>
                 <li>
-                    <a asp-controller="Shop" asp-action="Checkout">Checkout</a>
+                    <a ws-is-active-route asp-controller="Shop" asp-action="Checkout">Checkout</a>
                 </li>
                 <li>
-                    <a asp-controller="Cart" asp-action="Index">Cart</a>
+                    <a ws-is-active-route asp-controller="Cart" asp-action="Index">Cart</a>
                 </li>
                 <li>
-                    <a asp-controller="Account" asp-action="Login">Login</a>
+                    <a ws-is-active-route asp-controller="Account" asp-action="Login">Login</a>
                 </li>
             </ul>
         </li>
         <li class="dropdown">
-            <a href="#">Blog<i class="fa fa-angle-down"></i></a>
+            <a ws-is-active-route asp-controller="Blogs" asp-action="Index">
+                Blog<i class="fa fa-angle-down"></i>
+            </a>
             <ul role="menu" class="sub-menu">
                 <li>
-                    <a asp-controller="Blogs" asp-action="Index">Blog List</a>
+                    <a ws-is-active-route asp-controller="Blogs" asp-action="Index">Blog List</a>
                 </li>
                 <li>
-                    <a asp-controller="Blogs" asp-action="Blog">Blog Single</a>
+                    <a ws-is-active-route asp-controller="Blogs" asp-action="Blog">Blog Single</a>
                 </li>
             </ul>
         </li>
         <li>
-            <a asp-controller="NotFound" asp-action="Index">404</a>
+            <a ws-is-active-route asp-controller="NotFound" asp-action="Index">404</a>
         </li>
         <li>
-            <a asp-controller="ContactUs" asp-action="Index">Contact</a>
+            <a ws-is-active-route asp-controller="ContactUs" asp-action="Index">Contact</a>
         </li>
         <li>
-            <a asp-controller="Employee" asp-action="Index">Employees</a>
+            <a ws-is-active-route asp-controller="Employee" asp-action="Index">Employees</a>
         </li>
         <li>
-            <a asp-controller="WebApi" asp-action="Index">WebAPI</a>
+            <a asp-controller="WebApi" class="@IsActive("WebApi")" asp-action="Index">WebAPI</a>
         </li>
     </ul>
 </div>
+
+@functions
+{
+    string? IsActive(string controllerName, string actionName = "Index")
+    {
+        return Equals(ViewContext.RouteData.Values["Controller"], controllerName)
+               && Equals(ViewContext.RouteData.Values["Action"], actionName)
+            ? "active"
+            : null;
+    }
+}

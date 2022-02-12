@@ -28,7 +28,10 @@ public class ProductsClient : BaseClient, IProductData
     }
 
     public Product? GetProductById(int id) => Get<ProductDto>($"{Address}/{id}").FromDto();
- 
+    public Section? GetSectionById(int? id) => Get<SectionDto>($"{Address}/Sections/{id}").FromDto();
+
+    public Brand? GetBrandById(int id) => Get<BrandDto>($"{Address}/Brands/{id}").FromDto();
+
     public void Edit(Product product) => Put(Address, product.ToDto());
 
     public bool Delete(int id)

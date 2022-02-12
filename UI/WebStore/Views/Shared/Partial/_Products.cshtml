@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<WebStore.Domain.ViewModels.ProductViewModel>
 
-<div class="features_items"><!--features_items-->
+<div class="features_items">
+    <!--features_items-->
     <h2 class="title text-center">Products</h2>
     @foreach (var product in Model)
     {
@@ -8,18 +9,33 @@
             <div class="product-image-wrapper">
                 <div class="single-products">
                     <div class="productinfo text-center">
-                        <img src="~/images/shop/@product.ImageUrl" alt="" />
+                        <img src="~/images/shop/@product.ImageUrl" alt=""/>
                         <h2>@product.Price</h2>
-                        <p><a asp-controller="Shop" asp-action="Details" asp-route-id="@product.Id ">@product.Name</a></p>
+                        <p>
+                            <a asp-controller="Shop" asp-action="Details"
+                               asp-route-id="@product.Id"
+                               asp-route-sectionId="@Context.Request.Query["brandId"]"
+                               asp-route-sectionId="@Context.Request.Query["sectionId"]">
+                                @product.Name
+                            </a>
+                        </p>
                         <a class="btn btn-default add-to-cart"
-                           asp-action="Add" asp-controller="Cart" asp-route-id="@product.Id">
+                           asp-action="Add" asp-controller="Cart"
+                           asp-route-id="@product.Id">
                             <i class="fa fa-shopping-cart"></i>Add to cart
                         </a>
                     </div>
                     <div class="product-overlay">
                         <div class="overlay-content">
                             <h2>@product.Price</h2>
-                            <p><a asp-controller="Shop" asp-action="Details" asp-route-id="@product.Id ">@product.Name</a></p>
+                            <p>
+                                <a asp-controller="Shop" asp-action="Details" 
+                                   asp-route-id="@product.Id"
+                                   asp-route-brandId="@Context.Request.Query["brandId"]"
+                                   asp-route-sectionId="@Context.Request.Query["sectionId"]">
+                                    @product.Name
+                                </a>
+                            </p>
                             <a class="btn btn-default add-to-cart"
                                asp-action="Add" asp-controller="Cart" asp-route-id="@product.Id">
                                 <i class="fa fa-shopping-cart"></i>Add to cart
@@ -29,8 +45,12 @@
                 </div>
                 <div class="choose">
                     <ul class="nav nav-pills nav-justified">
-                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                        <li>
+                            <a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-plus-square"></i>Add to compare</a>
+                        </li>
                     </ul>
                 </div>
             </div>
