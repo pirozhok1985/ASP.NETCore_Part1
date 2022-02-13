@@ -20,8 +20,10 @@
                             </a>
                         </p>
                         <a class="btn btn-default add-to-cart"
-                           asp-action="Add" asp-controller="Cart"
-                           asp-route-id="@product.Id">
+                           asp-action="Add"
+                           asp-controller="Cart"
+                           asp-route-id="@product.Id"
+                           data-id="@product.Id">
                             <i class="fa fa-shopping-cart"></i>Add to cart
                         </a>
                     </div>
@@ -37,7 +39,10 @@
                                 </a>
                             </p>
                             <a class="btn btn-default add-to-cart"
-                               asp-action="Add" asp-controller="Cart" asp-route-id="@product.Id">
+                               asp-action="Add"
+                               asp-controller="Cart"
+                               asp-route-id="@product.Id"
+                               data-id="@product.Id">
                                 <i class="fa fa-shopping-cart"></i>Add to cart
                             </a>
                         </div>
