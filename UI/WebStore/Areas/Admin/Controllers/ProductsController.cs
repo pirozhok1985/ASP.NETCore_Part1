@@ -23,7 +23,7 @@ public class ProductsController : Controller
     public IActionResult Index()
     {
         var productsView = _productData.GetProducts().Products.ToView();
-        return  View(productsView);
+        return View(productsView);
     }
 
     public IActionResult Edit(int id)

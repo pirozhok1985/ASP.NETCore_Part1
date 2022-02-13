@@ -30,7 +30,7 @@ public class PageSwitcher : TagHelper
         var ul = new TagBuilder("ul");
         ul.AddCssClass("pagination");
         var urlHeler = _urlHelperFactory.GetUrlHelper(ViewContext);
-        for (var i = 1; i < PageViewModel?.TotalPages; i++)
+        for (var i = 1; i <= PageViewModel?.TotalPages; i++)
         {
             ul.InnerHtml.AppendHtml(CreateElement(i,urlHeler));
         }
