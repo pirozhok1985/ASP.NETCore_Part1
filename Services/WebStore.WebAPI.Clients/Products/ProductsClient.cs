@@ -15,10 +15,23 @@ public class ProductsClient : BaseClient, IProductData
     {
     }
 
-    public IEnumerable<Brand>? GetBrands() => Get<IEnumerable<BrandDto>>($"{Address}/Brands")!.FromDto()!;
+    public IEnumerable<Brand>? GetBrands(int skip, int? take)
+    {
+        if(skip > 0 && take > 0)
+          return Get<IEnumerable<BrandDto>>($"{Address}/Brands({skip}-{take})")!.FromDto()!;
+        return Get<IEnumerable<BrandDto>>($"{Address}/Brands")!.FromDto()!;
+    }
 
-    public IEnumerable<Section>? GetSections() => Get<IEnumerable<SectionDto>>($"{Address}/Sections")!.FromDto()!;
+    public IEnumerable<Section>? GetSections(int skip, int? take)
+    {
+        if(skip > 0 && take > 0)
+            return Get<IEnumerable<SectionDto>>($"{Address}/Sections({skip}-{take})")!.FromDto()!;
+        return Get<IEnumerable<SectionDto>>($"{Address}/Sections")!.FromDto()!;
+    }
 
+    public int GetBrandsCount() => Get<int>($"{Address}/Brands/Count");
+
+    public int GetSectionsCount() => Get<int>($"{Address}/Sections/Count");
 
     public ProductsPage GetProducts(ProductFilter? filter)
     {

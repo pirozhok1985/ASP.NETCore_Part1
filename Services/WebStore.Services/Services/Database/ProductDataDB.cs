@@ -18,9 +18,25 @@ public class ProductDataDB : IProductData
         _logger = logger;
     }
 
-    public IEnumerable<Brand>? GetBrands() => _db.Brands;
+    public IEnumerable<Brand>? GetBrands(int skip, int? take)
+    {
+        IQueryable<Brand> query = _db.Brands!;
+        if (skip > 0)
+            query = query.Skip(skip);
+        if (take is not null)
+            query = query.Take((int)take);
+        return query;
+    }
 
-    public IEnumerable<Section>? GetSections() => _db.Sections;
+    public IEnumerable<Section>? GetSections(int skip, int? take)
+    {
+        IQueryable<Section> query = _db.Sections!;
+        if (skip > 0)
+            query = query.Skip(skip);
+        if (take is not null)
+            query = query.Take((int)take);
+        return query;
+    }
 
     public Section? GetSectionById(int? sectionId)
     {
@@ -32,6 +48,10 @@ public class ProductDataDB : IProductData
     {
         return _db.Brands!.FirstOrDefault(b => b.Id == brandId);
     }
+
+    public int GetBrandsCount() => _db.Brands!.Count();
+
+    public int GetSectionsCount() => _db.Sections!.Count();
 
     public ProductsPage GetProducts(ProductFilter? filter = null)
     {

@@ -32,6 +32,21 @@ public class ProductsApiController : ControllerBase
         var result = _productData.GetBrands();
         return Ok(result?.ToDto());
     }
+    
+    [HttpGet("Brands({skip}-{take})")]
+    public IActionResult GetBrands(int skip, int? take)
+    {
+        var result = _productData.GetBrands(skip,take);
+        return Ok(result?.ToDto());
+    }
+
+    [HttpGet("brands/count")]
+    public IActionResult GetBrandsCount()
+    {
+        var count = _productData.GetBrands()!.Count();
+        return Ok(count);
+    }
+
     [HttpGet("Brands/{id}")]
     public IActionResult GetBrandById(int id)
     {
@@ -44,6 +59,20 @@ public class ProductsApiController : ControllerBase
     {
         var result = _productData.GetSections();
         return Ok(result?.ToDto());
+    }
+    
+    [HttpGet("Sections({skip}-{take})")]
+    public IActionResult GetSections(int skip, int? take)
+    {
+        var result = _productData.GetSections(skip,take);
+        return Ok(result?.ToDto());
+    }
+    
+    [HttpGet("sections/count")]
+    public IActionResult GetSectionsCount()
+    {
+        var count = _productData.GetSections()!.Count();
+        return Ok(count);
     }
     
     [HttpGet("Sections/{id}")]
