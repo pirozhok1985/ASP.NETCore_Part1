@@ -18,7 +18,7 @@ namespace WebStore.Controllers
             _ProductData = productData;
             _configuration = configuration;
         }
-        public IActionResult Index(int? brandId, int? sectionId, int? page = 1, int? pageSize = null)
+        public IActionResult Index(int? brandId, int? sectionId, int page = 1, int? pageSize = null)
         {
             var filter = new ProductFilter
             {
@@ -37,7 +37,7 @@ namespace WebStore.Controllers
                 PageViewModel = new PageViewModel
                 {
                     Page = page,
-                    PageSize = pageSize ?? 0,
+                    PageSize = filter.PageSize ?? 0,
                     TotalCount = totalCount
                 }
             };
