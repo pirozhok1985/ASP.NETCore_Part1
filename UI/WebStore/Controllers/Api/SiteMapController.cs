@@ -20,7 +20,7 @@ public class SiteMapController : ControllerBase
             .Select(s => new SitemapNode(Url.Action("Index","Shop",new {SectionId = s.Id}))));
         nodes.AddRange(productData.GetBrands()!
             .Select(b => new SitemapNode(Url.Action("Index","Shop", new {BrandId = b.Id}))));
-        nodes.AddRange(productData.GetProducts()!
+        nodes.AddRange(productData.GetProducts().Products
             .Select(p => new SitemapNode(Url.Action("Details","Shop", new {Id = p!.Id}))));
         return new SitemapProvider().CreateSitemap(new SitemapModel(nodes));
     }

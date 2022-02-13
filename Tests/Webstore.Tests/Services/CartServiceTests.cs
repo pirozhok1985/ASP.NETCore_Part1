@@ -33,7 +33,7 @@ public class CartServiceTests
         _productDataMock = new Mock<IProductData>();
         _productDataMock
             .Setup(p => p.GetProducts(It.IsAny<ProductFilter>()))
-            .Returns(new []
+            .Returns(new ProductsPage(new []
             {
                 new Product
                 {
@@ -71,7 +71,7 @@ public class CartServiceTests
                     ImageUrl = "product4.img",
                     SectionId = 1
                 }
-            });
+            },3));
         _cartStoreMock = new Mock<ICartStore>();
         _cartStoreMock
             .Setup(c => c.Cart)

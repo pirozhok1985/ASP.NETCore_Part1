@@ -20,11 +20,11 @@ public class ProductsClient : BaseClient, IProductData
     public IEnumerable<Section>? GetSections() => Get<IEnumerable<SectionDto>>($"{Address}/Sections")!.FromDto()!;
 
 
-    public IEnumerable<Product> GetProducts(ProductFilter? filter)
+    public ProductsPage GetProducts(ProductFilter? filter)
     {
         var result = Post(Address, filter ?? new ());
-        var products = result!.Content.ReadFromJsonAsync<IEnumerable<ProductDto>>().Result;
-        return products!.FromDto()!;
+        var products = result!.Content.ReadFromJsonAsync<ProductsPageDto>().Result;
+        return products!.FromDto();
     }
 
     public Product? GetProductById(int id) => Get<ProductDto>($"{Address}/{id}").FromDto();

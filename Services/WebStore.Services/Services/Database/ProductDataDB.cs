@@ -33,7 +33,7 @@ public class ProductDataDB : IProductData
         return _db.Brands!.FirstOrDefault(b => b.Id == brandId);
     }
 
-    public IEnumerable<Product?> GetProducts(ProductFilter? filter = null)
+    public ProductsPage GetProducts(ProductFilter? filter = null)
     {
         IQueryable<Product> query = _db.Products
             .Include(p => p.Brand)
@@ -50,7 +50,12 @@ public class ProductDataDB : IProductData
                 query = query.Where(p => p.BrandId == brand_id);
         }
 
-        return query;
+        var itemsCount = query.Count();
+        if (filter is {Page: > 0 and var page, PageSize: > 0 and var pageSize})
+            query = query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize);
+        return new(query.AsEnumerable(),itemsCount);
     }
 
     public Product? GetProductById(int id)

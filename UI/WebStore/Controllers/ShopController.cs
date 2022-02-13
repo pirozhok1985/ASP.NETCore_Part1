@@ -11,24 +11,29 @@ namespace WebStore.Controllers
     public class ShopController : Controller
     {
         private readonly IProductData _ProductData;
+        private readonly IConfiguration _configuration;
 
-        public ShopController(IProductData productData)
+        public ShopController(IProductData productData, IConfiguration configuration)
         {
             _ProductData = productData;
+            _configuration = configuration;
         }
-        public IActionResult Index(int? brandId, int? sectionId)
+        public IActionResult Index(int? brandId, int? sectionId, int? page = 1, int? pageSize = null)
         {
             var filter = new ProductFilter
             {
                 BrandId = brandId,
-                SectionId = sectionId
+                SectionId = sectionId,
+                Page = page,
+                PageSize = pageSize ?? 
+                           (int.TryParse(_configuration["CatalogPageSize"], out var pSize)? pSize : null)
             };
             var products = _ProductData.GetProducts(filter);
             var productsCatalog = new CatalogViewModel
             {
                 BrandId = brandId,
                 SectionId = sectionId,
-                Products = products.OrderBy(p => p.Order).ToView()
+                Products = products.Products.OrderBy(p => p.Order).ToView()
             };
             return View(productsCatalog);
         }
