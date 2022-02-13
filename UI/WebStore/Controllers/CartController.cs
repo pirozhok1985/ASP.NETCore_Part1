@@ -52,4 +52,24 @@ public class CartController : Controller
         ViewBag.OrderId = orderId;
         return View();
     }
+
+    #region CartWebApi
+
+    public IActionResult AddApi(int id)
+    {
+        _cartService.Add(id);
+        return Json(new {id, message = $"Product with id {id} has been successfully added to cart"});
+    }
+    public IActionResult RemoveApi(int id)
+    {
+        _cartService.Remove(id);
+        return Ok(new {id, message = $"Product with id {id} has been successfully removed"});
+    }
+    public IActionResult DecrementApi(int id)
+    {
+        _cartService.Decrement(id);
+        return Ok();
+    }
+
+    #endregion
 }
