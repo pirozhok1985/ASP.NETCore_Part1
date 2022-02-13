@@ -8,7 +8,7 @@
         <div class="breadcrumbs">
             <ol class="breadcrumb">
                 <li>
-                    <a href="#">Home</a>
+                    <a asp-controller="Home" asp-action="Index">Home</a>
                 </li>
                 <li class="active">Shopping Cart</li>
             </ol>
@@ -44,7 +44,7 @@
                             <p>@product.Price.ToString("C")</p>
                         </td>
                         <td class="cart_quantity">
-                            <div class="cart_quantity_button add-to-cart">
+                            <div class="cart_quantity_button">
                                 <a class="cart_quantity_up" 
                                    asp-action="Add" 
                                    asp-route-id="@product.Id"

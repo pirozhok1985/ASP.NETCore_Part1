@@ -17,7 +17,10 @@
 $(function (){
     Cart.init({
         getCartViewLink: "@Url.Action("GetCartView","Cart")",
-        addToCartLink: "@Url.Action("AddApi","Cart")" 
+        addToCartLink: "@Url.Action("AddApi","Cart")",
+        incrementItemLink: "@Url.Action("AddApi","Cart")",
+        decrementItemLink: "@Url.Action("DecrementApi","Cart")",
+        removeFromCartLink: "@Url.Action("RemoveApi","Cart")"
     });
 })
 </script>
