@@ -55,6 +55,7 @@ public class CartController : Controller
 
     #region CartWebApi
 
+    public IActionResult GetCartView() => ViewComponent("Cart");
     public IActionResult AddApi(int id)
     {
         _cartService.Add(id);
