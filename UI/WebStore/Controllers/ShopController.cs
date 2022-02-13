@@ -28,12 +28,18 @@ namespace WebStore.Controllers
                 PageSize = pageSize ?? 
                            (int.TryParse(_configuration["CatalogPageSize"], out var pSize)? pSize : null)
             };
-            var products = _ProductData.GetProducts(filter);
+            var (products,totalCount) = _ProductData.GetProducts(filter);
             var productsCatalog = new CatalogViewModel
             {
                 BrandId = brandId,
                 SectionId = sectionId,
-                Products = products.Products.OrderBy(p => p.Order).ToView()
+                Products = products.OrderBy(p => p.Order).ToView(),
+                PageViewModel = new PageViewModel
+                {
+                    Page = page,
+                    PageSize = pageSize ?? 0,
+                    TotalCount = totalCount
+                }
             };
             return View(productsCatalog);
         }
