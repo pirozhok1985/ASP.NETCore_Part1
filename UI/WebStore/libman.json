@@ -4,7 +4,7 @@
   "libraries": [
     {
       "library": "twitter-bootstrap@3.0.3",
-      "destination": "wwwroot/lib/bootstrap/"
+      "destination": "wwwroot/lib/twitter-bootstrap/"
     },
     {
       "library": "html5shiv@3.6.2",
@@ -21,6 +21,14 @@
     {
       "library": "scrollup@2.4.0",
       "destination": "wwwroot/lib/scrollup/"
+    },
+    {
+      "library": "jquery-loading-overlay@2.1.7",
+      "destination": "wwwroot/lib/jquery-loading-overlay/"
+    },
+    {
+      "library": "gmaps.js@0.4.25",
+      "destination": "wwwroot/lib/gmaps.js/"
     }
   ]
 }
