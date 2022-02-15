@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;using Polly;
+using Polly.Extensions.Http;
 using Serilog;
 using Serilog.Formatting.Json;
 using WebStore.DAL.Context;
@@ -26,11 +27,14 @@ builder.Services.AddControllersWithViews(param =>
     param.Conventions.Add(new TestConvention());
 });
 
-builder.Services.AddHttpClient("WebStoreClient", client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]))
+builder.Services
+    .AddHttpClient("WebStoreClient", client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]))
     .AddTypedClient<IValueService, ValuesClient>()
     .AddTypedClient<IEmployeesData, EmployeesClient>()
     .AddTypedClient<IProductData, ProductsClient>()
-    .AddTypedClient<IOrderService, OrdersClient>();
+    .AddTypedClient<IOrderService, OrdersClient>()
+    .AddPolicyHandler(GetRetryPolicy())
+    .AddPolicyHandler(GetCercuitBreakerPolicy());
 
 builder.Services.AddScoped<ICartStore, CartStoreCookies>();
 builder.Services.AddScoped<ICartService, CartService>();
@@ -49,7 +53,8 @@ builder.Services.AddHttpClient("WebIdentityClient",
     .AddTypedClient<IUserClaimStore<User>, UsersClient>()
     .AddTypedClient<IUserRoleStore<User>, UsersClient>()
     .AddTypedClient<IUserTwoFactorStore<User>, UsersClient>()
-    .AddTypedClient<IRoleStore<Role>, RolesClient>();
+    .AddTypedClient<IRoleStore<Role>, RolesClient>()
+    .AddPolicyHandler(GetRetryPolicy());
 
 builder.Services.ConfigureApplicationCookie(opt =>
 {
@@ -92,3 +97,17 @@ app.UseEndpoints(endpoints =>
 app.Run();
 
 #endregion
+
+static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy(int maxAttemptCount = 5, int maxJitterTime = 1000)
+{
+    return HttpPolicyExtensions
+        .HandleTransientHttpError()
+        .WaitAndRetryAsync(maxAttemptCount, retryAttempt => 
+            TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
+            + TimeSpan.FromMilliseconds(new Random().Next(2,maxJitterTime)));
+}
+
+static IAsyncPolicy<HttpResponseMessage> GetCercuitBreakerPolicy() => 
+    HttpPolicyExtensions
+    .HandleTransientHttpError()
+    .CircuitBreakerAsync(5, TimeSpan.FromSeconds(30));
