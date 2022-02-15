@@ -1,14 +1,22 @@
 ﻿   <div class="shop-menu pull-right">
         <ul class="nav navbar-nav">
             <li>
-                <a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart"></i> Cart</a>
+                <a asp-controller="Cart" asp-action="Index" id="cart-container">
+                    <vc:cart/>
+                </a>
             </li>
 
             <li>
-                <a asp-controller="Account" asp-action="Login"><i class="fa fa-sign-in"></i> Sign in</a>
+                <a asp-controller="Account" asp-action="Login">
+                    <i class="fa fa-sign-in"></i>
+                    Sign in
+                </a>
             </li>
             <li>
-                <a asp-controller="Account" asp-action="Register"><i class="fa fa-user"></i> Sign up</a>
+                <a asp-controller="Account" asp-action="Register">
+                    <i class="fa fa-user"></i>
+                    Sign up
+                </a>
             </li>
         </ul>
    </div>

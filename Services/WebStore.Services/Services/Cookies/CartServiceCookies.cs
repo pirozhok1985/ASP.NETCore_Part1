@@ -94,7 +94,7 @@ public class CartServiceCookies : ICartService
         var cart = Cart;
         var products = _productData.GetProducts(
             new ProductFilter{IDs = Cart.CartItems.Select(i => i.ProductId).ToArray()});
-        var productViews = products.ToView().ToDictionary(p => p.Id);
+        var productViews = products.Products.ToView().ToDictionary(p => p.Id);
         return new ()
         {
             Items = cart.CartItems.Where(i => productViews.ContainsKey(i.ProductId)).Select(i => (productViews[i.ProductId], i.Quantity))!

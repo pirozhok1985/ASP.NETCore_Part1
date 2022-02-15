@@ -19,6 +19,12 @@
 
             <div class="col-sm-9 padding-right">
                 <partial name="Partial/_Products" model="Model.Products"/>
+                <page-switcher page-view-model="Model.PageViewModel"
+                               page-action="Index"
+                               page-url-sectionId="@Model.SectionId"
+                               page-url-brandId="@Model.BrandId"
+                               page-url-pageSize="@Context.Request.Query["pageSize"]">
+                </page-switcher>
             </div>
         </div>
     </div>

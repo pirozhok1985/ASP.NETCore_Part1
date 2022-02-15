@@ -22,8 +22,8 @@ public class ProductsController : Controller
 
     public IActionResult Index()
     {
-        var productsView = _productData.GetProducts().ToView();
-        return  View(productsView);
+        var productsView = _productData.GetProducts().Products.ToView();
+        return View(productsView);
     }
 
     public IActionResult Edit(int id)

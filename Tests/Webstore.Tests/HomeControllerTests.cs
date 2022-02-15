@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,7 +20,7 @@ public class HomeControllerTests
     {
         var productDataMock = new Mock<IProductData>();
         productDataMock.Setup(p => p.GetProducts(It.IsAny<ProductFilter>()))
-            .Returns(Enumerable.Empty<Product?>());
+            .Returns<ProductFilter>(p => new ProductsPage(Enumerable.Empty<Product>(),0));
 
         var actualResult = new HomeController().Index(productDataMock.Object);
         Assert.IsType<ViewResult>(actualResult);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebStore.Interfaces.Services;
 using WebStore.Services.Services;
 
@@ -8,7 +9,7 @@ namespace WebStore.Controllers
     {
         public IActionResult Index([FromServices]IProductData productData)
         {
-            var products = productData.GetProducts().Take(3).OrderBy(p => p?.Order).ToView();
+            var products = productData.GetProducts(new () { Page = 1, PageSize = 6}).Products.OrderBy(p => p?.Order).ToView();
             ViewBag.Products = products;
             return View();
         }

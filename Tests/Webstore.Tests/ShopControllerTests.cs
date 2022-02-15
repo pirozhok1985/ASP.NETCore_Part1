@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using WebStore.Controllers;
@@ -47,7 +48,12 @@ public class ShopControllerTests
                     ParentId = expectedSectionParentId
                 }
             });
-        var controller = new ShopController(productDataMock.Object);
+        
+        var configurationMock = new Mock<IConfiguration>();
+        configurationMock.Setup(c => c[It.IsAny<string>()])
+            .Returns("3");
+        
+        var controller = new ShopController(productDataMock.Object, configurationMock.Object);
         
         
         var result = controller.Details(id);
