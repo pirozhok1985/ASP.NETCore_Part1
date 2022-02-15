@@ -10,6 +10,7 @@ namespace WebStore.Controllers
 {
     public class ShopController : Controller
     {
+        private const string CatalogPageSize = "CatalogPageSize";
         private readonly IProductData _ProductData;
         private readonly IConfiguration _configuration;
 
@@ -26,7 +27,7 @@ namespace WebStore.Controllers
                 SectionId = sectionId,
                 Page = page,
                 PageSize = pageSize ?? 
-                           (int.TryParse(_configuration["CatalogPageSize"], out var pSize)? pSize : null)
+                           (int.TryParse(_configuration[CatalogPageSize], out var pSize)? pSize : null)
             };
             var (products,totalCount) = _ProductData.GetProducts(filter);
             var productsCatalog = new CatalogViewModel
@@ -71,7 +72,7 @@ namespace WebStore.Controllers
                 BrandId = brandId,
                 SectionId = sectionId,
                 Page = page,
-                PageSize = pageSize,
+                PageSize = pageSize ?? _configuration.GetValue(CatalogPageSize, 6),
             });
             return products.Products.OrderBy(p => p.Order).ToView()!;
         }
