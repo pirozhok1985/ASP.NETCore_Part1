@@ -1,8 +1,17 @@
 ﻿@{
     Layout = "_LayoutSimple";
 }
-    @await Html.PartialAsync("Partial/_Header")
-    	
-	@RenderBody()
+@await Html.PartialAsync("Partial/_Header")
 
-    <partial name="Partial/_Footer"/>
+@RenderBody()
+
+<partial name="Partial/_Footer"/>
+
+@section Scripts
+{
+    @await RenderSectionAsync("Scripts", false)
+}
+@section Styles
+{
+    @await RenderSectionAsync("Styles", false)
+}
