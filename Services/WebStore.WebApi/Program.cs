@@ -45,6 +45,12 @@ builder.Services.AddScoped<IProductData, ProductDataDB>();
 builder.Services.AddScoped<IOrderService, OrderServiceDB>();
 
 var app = builder.Build();
+await using (var dbScope = app.Services.CreateAsyncScope())
+{
+    var dbInitializer = dbScope.ServiceProvider.GetRequiredService<IDbInitializer>();
+    var token = new CancellationToken(false);
+    await dbInitializer.InitializeAsync(false, token);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
