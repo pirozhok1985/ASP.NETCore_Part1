@@ -4,16 +4,16 @@
 
 <main class="container">
 
-    @section Styles
-    {
-        @await RenderSectionAsync("Styles", false)
-    }
-
     @RenderBody()
 
-    @section Scripts
-    {
-        @await RenderSectionAsync("Scripts", false)
-    }
-
 </main>
+
+@section Styles
+{
+    @await RenderSectionAsync("Styles", false)
+}
+
+@section Scripts
+{
+    @await RenderSectionAsync("Scripts", false)
+}

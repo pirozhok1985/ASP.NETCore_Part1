@@ -44,10 +44,12 @@ public class AccountController : Controller
                 {
                     ModelState.AddModelError(error.Code, error.Description);
                 }
+
                 _logger.LogError("При регистрации пользователя {0} возникли ошибки {1}",
-                    user.UserName, String.Join(",",registerResult.Errors.Select(e => e.Description)));
+                    user.UserName, String.Join(",", registerResult.Errors.Select(e => e.Description)));
                 return View(model);
             }
+
             _logger.LogInformation("Пользователь {0} успешно зарегистрировался", user.UserName);
             await _userManager.AddToRoleAsync(user, Role.Users);
             await _signInManager.SignInAsync(user, false);
@@ -76,13 +78,15 @@ public class AccountController : Controller
             {
                 ModelState.AddModelError("", "UserName or Password is incorrect");
                 _logger.LogError("При входе пользователя {0} возникли ошибки {1}",
-                    model.UserName , ModelState.Values
-                        .Select(v => String.Join(",",v.Errors
+                    model.UserName, ModelState.Values
+                        .Select(v => String.Join(",", v.Errors
                             .Select(e => e.ErrorMessage))));
                 return View(model);
             }
+
             _logger.LogInformation("Пользователь {0} вошёл в систему", model.UserName);
         }
+
         return LocalRedirect(model.ReturnUrl ?? "/");
     }
 
@@ -99,5 +103,12 @@ public class AccountController : Controller
         _logger.LogCritical("Доступ к ресурсу {0} для пользователя {1} запрещён!",
             ControllerContext.HttpContext.Request.Path, User.Identity.Name);
         return View();
+    }
+
+    public async Task<IActionResult> ValidateName(string userName)
+    {
+        var result = await _userManager.FindByNameAsync(userName);
+        _logger.LogInformation("UserName {0} is {1}",userName,result is null? "free":"occupied");
+        return Json(result is null ? "true" : $"Name {userName} has already been occupied!");
     }
 }

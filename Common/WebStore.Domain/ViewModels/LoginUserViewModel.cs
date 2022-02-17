@@ -7,6 +7,7 @@ public class LoginUserViewModel
 {
     [Required]
     [Display(Name="User Name")]
+    [Remote("ValidateName","Account")]
     public string UserName { get; set; }
 
     [Required]
