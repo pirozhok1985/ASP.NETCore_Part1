@@ -21,7 +21,7 @@ using WebStore.WebAPI.Clients.Values;
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.AddLog4Net();
 builder.Host.UseSerilog((host, loggerConfig) => loggerConfig.ReadFrom.Configuration(host.Configuration)
-.WriteTo.File(new JsonFormatter(",",true),$@".\Logs\WebStore[{DateTime.Now:yyyy-MM-ddTHH-mm-ss}].log.json"));
+.WriteTo.File(new JsonFormatter(",",true),$@"/Logs/WebStore[{DateTime.Now:yyyy-MM-ddTHH-mm-ss}].log.json"));
 builder.Services.AddControllersWithViews(param =>
 {
     param.Conventions.Add(new TestConvention());

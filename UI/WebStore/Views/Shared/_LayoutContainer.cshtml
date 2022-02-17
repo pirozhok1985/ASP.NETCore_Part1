@@ -1,15 +1,19 @@
 ﻿@{
     Layout = "_Layout";
 }
-<main class="container">
-    @RenderBody()
-</main>
 
-@section Scripts
-{
-    @await RenderSectionAsync("Scripts", false)
-}
-@section Styles
-{
-    @await RenderSectionAsync("Styles", false)
-}
+<main class="container">
+
+    @section Styles
+    {
+        @await RenderSectionAsync("Styles", false)
+    }
+
+    @RenderBody()
+
+    @section Scripts
+    {
+        @await RenderSectionAsync("Scripts", false)
+    }
+
+</main>
