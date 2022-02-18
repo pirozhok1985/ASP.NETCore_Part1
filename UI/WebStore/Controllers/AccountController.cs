@@ -105,10 +105,10 @@ public class AccountController : Controller
         return View();
     }
 
-    public async Task<IActionResult> ValidateName(string userName)
+    public async Task<IActionResult> ValidateName(string UserName)
     {
-        var result = await _userManager.FindByNameAsync(userName);
-        _logger.LogInformation("UserName {0} is {1}",userName,result is null? "free":"occupied");
-        return Json(result is null ? "true" : $"Name {userName} has already been occupied!");
+        var result = await _userManager.FindByNameAsync(UserName);
+        _logger.LogInformation("UserName {0} is {1}",UserName,result is null? "free":"occupied");
+        return Json(result is null ? "true" : $"Name {UserName} has already been occupied!");
     }
 }

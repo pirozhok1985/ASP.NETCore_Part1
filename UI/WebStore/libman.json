@@ -35,6 +35,7 @@
       "destination": "wwwroot/lib/jquery-validate/",
       "files": [
         "jquery.validate.min.js",
+        "jquery.validate.js",
         "localization/messages_ru.min.js"
       ]
     },
