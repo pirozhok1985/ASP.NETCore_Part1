@@ -39,4 +39,6 @@ public class AjaxTestController : Controller
             ServerTime = DateTime.Now
         });
     }
+
+    public IActionResult Chat() => View();
 }
