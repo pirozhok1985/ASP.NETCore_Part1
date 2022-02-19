@@ -5,6 +5,7 @@ using Serilog;
 using Serilog.Formatting.Json;
 using WebStore.DAL.Context;
 using WebStore.Domain.Identity;
+using WebStore.Hubs;
 using WebStore.Infrastructure.Conventions;
 using WebStore.Infrastructure.Middleware;
 using WebStore.Interfaces.Services;
@@ -67,7 +68,7 @@ builder.Services.ConfigureApplicationCookie(opt =>
     opt.AccessDeniedPath = "/Account/AccessDenied";
     opt.SlidingExpiration = true;
 });
-
+builder.Services.AddSignalR();
 var app = builder.Build();
 
 #region Processing PipeLine
@@ -84,6 +85,7 @@ app.UseMiddleware<MiddlewareExceptionHandling>();
 app.UseWelcomePage("/mswelcome");
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapHub<ChatHub>("/chat");
     endpoints.MapControllerRoute(
         name: "areas",
         pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"

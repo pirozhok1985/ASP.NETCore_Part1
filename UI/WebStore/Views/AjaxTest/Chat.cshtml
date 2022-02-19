@@ -2,3 +2,28 @@
     ViewBag.Title = "Support service chat";
     Layout = "_LayoutContainer";
 }
+<h4>Chat example</h4>
+<div>
+    <div id="input-form">
+        <input type="text" id="message"/>
+        <input type="button" class="btn btn-default" id="send-message-button" value="Send"/>
+    </div>
+    <ul id="information-block"></ul>
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/aspnet-signalr/signalr.min.js"></script>
+    <script>
+        const hubUrl = "/chat";
+        const connection = new signalR.HubConnectionBuilder().withUrl(hubUrl).build();
+        
+        connection.on(
+            "ClientMessageHandler", 
+            data => $("#information-block").prepend($("<li></li>").html(data)));
+        
+        $("#send-message-button").click(() => connection.invoke("SendMessage", $("#message").val()));
+        
+        connection.start();
+    </script>
+}
