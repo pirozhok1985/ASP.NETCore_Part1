@@ -7,15 +7,17 @@
     <meta name="author" content="">
     <title>Home | E-Shopper</title>
     <partial name="Partial/_Styles"/>
+    @await RenderSectionAsync("Styles",false)
     <!--[if lt IE 9]>
-    <script src="~/lib/html5shiv/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->       
+        <script src="~/lib/html5shiv/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+    <![endif]-->
     <link rel="shortcut icon" href="images/ico/favicon.ico">
 </head><!--/head-->
 
 <body>
-    @RenderBody()
-    <partial name="Partial/_Scripts"/>
+@RenderBody()
+<partial name="Partial/_Scripts"/>
+@await RenderSectionAsync("Scripts", false)
 </body>
 </html>

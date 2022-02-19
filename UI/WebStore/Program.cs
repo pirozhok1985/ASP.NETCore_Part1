@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;using Polly;
+using Polly.Extensions.Http;
 using Serilog;
 using Serilog.Formatting.Json;
 using WebStore.DAL.Context;
 using WebStore.Domain.Identity;
+using WebStore.Hubs;
 using WebStore.Infrastructure.Conventions;
 using WebStore.Infrastructure.Middleware;
 using WebStore.Interfaces.Services;
@@ -20,53 +22,27 @@ using WebStore.WebAPI.Clients.Values;
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.AddLog4Net();
 builder.Host.UseSerilog((host, loggerConfig) => loggerConfig.ReadFrom.Configuration(host.Configuration)
-    // .MinimumLevel.Debug()
-    // .MinimumLevel.Override("Microsoft",LogEventLevel.Warning)
-    // .Enrich.FromLogContext()
-    // .WriteTo.Console(outputTemplate:"[{Timestamp:HH:mm:ss.fff} {Level:u3}]{SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}")
-    // .WriteTo.RollingFile($@".\Logs\WebStore[{DateTime.Now:yyyy-MM-ddTHH-mm-ss}].log")
-    .WriteTo.File(new JsonFormatter(",",true),$@".\Logs\WebStore[{DateTime.Now:yyyy-MM-ddTHH-mm-ss}].log.json"));
+.WriteTo.File(new JsonFormatter(",",true),$@"/Logs/WebStore[{DateTime.Now:yyyy-MM-ddTHH-mm-ss}].log.json"));
 builder.Services.AddControllersWithViews(param =>
 {
     param.Conventions.Add(new TestConvention());
 });
-// builder.Services.AddSingleton<IEmployeesData,EmployeeDataInMemory>();
-// builder.Services.AddScoped<IEmployeesData, EmployeeDataDb>();
-//builder.Services.AddSingleton<IProductData, ProductDataInMemory>();
-// builder.Services.AddScoped<IProductData, ProductDataDB>();
-builder.Services.AddScoped<ICartService,CartService>();
-builder.Services.AddScoped<ICartStore,CartStoreCookies>();
-// builder.Services.AddScoped<IOrderService, OrderServiceDB>();
-// builder.Services.AddHttpClient<IValueService,ValuesClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
-// builder.Services.AddHttpClient<IEmployeesData,EmployeesClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
-// builder.Services.AddHttpClient<IProductData,ProductsClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
-// builder.Services.AddHttpClient<IOrderService,OrdersClient>(client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]));
-builder.Services.AddHttpClient("WebStoreClient", client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]))
+
+builder.Services
+    .AddHttpClient("WebStoreClient", client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]))
     .AddTypedClient<IValueService, ValuesClient>()
     .AddTypedClient<IEmployeesData, EmployeesClient>()
     .AddTypedClient<IProductData, ProductsClient>()
-    .AddTypedClient<IOrderService, OrdersClient>();
+    .AddTypedClient<IOrderService, OrdersClient>()
+    .AddPolicyHandler(GetRetryPolicy())
+    .AddPolicyHandler(GetCercuitBreakerPolicy());
 
-builder.Services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
-builder.Services.AddIdentity<User, Role>(opt =>
-{
-#if DEBUG
-    opt.Password.RequireDigit = false;
-    opt.Password.RequireLowercase = false;
-    opt.Password.RequireUppercase = false;
-    opt.Password.RequireDigit = false;
-    opt.Password.RequireNonAlphanumeric = false;
-    opt.Password.RequiredLength = 3;
-    opt.Password.RequiredUniqueChars = 3;
-#endif
-    opt.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    opt.User.RequireUniqueEmail = false;
+builder.Services.AddScoped<ICartStore, CartStoreCookies>();
+builder.Services.AddScoped<ICartService, CartService>();
 
-    opt.Lockout.AllowedForNewUsers = false;
-    opt.Lockout.MaxFailedAccessAttempts = 10;
-    opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+builder.Services.AddIdentity<User, Role>()
+    .AddDefaultTokenProviders();
 
-}).AddDefaultTokenProviders();
 builder.Services.AddHttpClient("WebIdentityClient",
         client => client.BaseAddress = new Uri(builder.Configuration["WebAPI"]))
     .AddTypedClient<IUserStore<User>, UsersClient>()
@@ -78,8 +54,9 @@ builder.Services.AddHttpClient("WebIdentityClient",
     .AddTypedClient<IUserClaimStore<User>, UsersClient>()
     .AddTypedClient<IUserRoleStore<User>, UsersClient>()
     .AddTypedClient<IUserTwoFactorStore<User>, UsersClient>()
-    .AddTypedClient<IRoleStore<Role>, RolesClient>();
-builder.Services.AddTransient<IDbInitializer, DbInitializer>();
+    .AddTypedClient<IRoleStore<Role>, RolesClient>()
+    .AddPolicyHandler(GetRetryPolicy());
+
 builder.Services.ConfigureApplicationCookie(opt =>
 {
     opt.Cookie.Name = "WebStore.GB";
@@ -91,15 +68,8 @@ builder.Services.ConfigureApplicationCookie(opt =>
     opt.AccessDeniedPath = "/Account/AccessDenied";
     opt.SlidingExpiration = true;
 });
-
+builder.Services.AddSignalR();
 var app = builder.Build();
-await using (var dbScope = app.Services.CreateAsyncScope())
-{
-    var dbInitializer = dbScope.ServiceProvider.GetRequiredService<IDbInitializer>();
-    var token = new CancellationToken(false);
-    await dbInitializer.InitializeAsync(false, token);
-}
-
 
 #region Processing PipeLine
 
@@ -115,6 +85,7 @@ app.UseMiddleware<MiddlewareExceptionHandling>();
 app.UseWelcomePage("/mswelcome");
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapHub<ChatHub>("/chat");
     endpoints.MapControllerRoute(
         name: "areas",
         pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
@@ -128,3 +99,17 @@ app.UseEndpoints(endpoints =>
 app.Run();
 
 #endregion
+
+static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy(int maxAttemptCount = 5, int maxJitterTime = 1000)
+{
+    return HttpPolicyExtensions
+        .HandleTransientHttpError()
+        .WaitAndRetryAsync(maxAttemptCount, retryAttempt => 
+            TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
+            + TimeSpan.FromMilliseconds(new Random().Next(2,maxJitterTime)));
+}
+
+static IAsyncPolicy<HttpResponseMessage> GetCercuitBreakerPolicy() => 
+    HttpPolicyExtensions
+    .HandleTransientHttpError()
+    .CircuitBreakerAsync(5, TimeSpan.FromSeconds(30));

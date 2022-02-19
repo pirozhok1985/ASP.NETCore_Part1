@@ -20,7 +20,7 @@ public class PageSwitcher : TagHelper
     
     
     [HtmlAttributeName(DictionaryAttributePrefix = "page-url-")]
-    public Dictionary<string, object> PageUrlValues { get; set; } = new (StringComparer.OrdinalIgnoreCase);
+    public Dictionary<string, object?> PageUrlValues { get; set; } = new (StringComparer.OrdinalIgnoreCase);
     
     [ViewContext, HtmlAttributeNotBound]
     public ViewContext? ViewContext { get; set; }
@@ -47,8 +47,16 @@ public class PageSwitcher : TagHelper
             li.AddCssClass("active");
         else
         {
-            PageUrlValues["page"] = pageNumber;
-            a.Attributes["href"] = urlHeler.Action(PageAction, PageUrlValues);
+            // PageUrlValues["page"] = pageNumber;
+            // a.Attributes["href"] = urlHeler.Action(PageAction, PageUrlValues);
+            a.Attributes["href"] = "#";
+        }
+
+        PageUrlValues["Page"] = pageNumber;
+        foreach (var (key,value) in PageUrlValues.Select(p => (p.Key,Value:p.Value?.ToString()))
+                     .Where(p => p.Value! is {Length: > 0}))
+        {
+            a.MergeAttribute($"data-{key}", value);
         }
 
         li.InnerHtml.AppendHtml(a);
