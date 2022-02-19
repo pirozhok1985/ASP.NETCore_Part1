@@ -3,8 +3,77 @@
     Layout = "_LayoutContainer";
 }
 
-<div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4"></div>
-    <div class="col-md-4"></div>
+<div class="row main-row">
+    <div class="col-md-4">
+        <h4>Server side rendering</h4>
+        <a class="btn btn-default"
+           data-ajax="true"
+           data-ajax-url=@Url.Action("GetHtml", "AjaxTest", new {id = 34, message = "Hello Html!", delay = "1500"})
+           data-ajax-update="#panel-server"
+           data-ajax-loading="#spinner-server">
+            Load
+        </a>
+        <span id="spinner-server" style="display: none">
+            <i class="fa fa-spinner fa-spin"></i>
+        </span>
+        <div id="panel-server"></div>
+    </div>
+    <div class="col-md-4">
+        <h4>Client side rendering</h4>
+        <a class="btn btn-default"
+           data-ajax="true"
+           data-ajax-url=@Url.Action("GetJson", "AjaxTest", new {id = 24, message = "Hello Json!", delay = "1500"})
+           data-ajax-loading="#spinner-client"
+           data-ajax-success="OnJsonLoaded">
+            Load
+        </a>
+        <span id="spinner-client" style="display: none">
+            <i class="fa fa-spinner fa-spin"></i>
+        </span>
+        <div id="panel-client"></div>
+    </div>
+    <div class="col-md-4">
+        <h4>Manual rendering</h4>
+        <a class="btn btn-default" id="manual-load">Load</a>
+        <span id="spinner-manual" style="display: none">
+            <i class="fa fa-spinner fa-spin"></i>
+        </span>
+        <div id="panel-js"></div>
+    </div>
 </div>
+
+@section Styles
+{
+    <style>
+        .main-row {
+        margin-bottom: 10px;
+        }
+    </style>
+}
+
+@section Scripts
+{
+    <script>
+        OnJsonLoaded = data => {
+         const panel = $("#panel-client");
+         panel.empty();
+         panel.append("message: " + data.message);
+         panel.append("<br/>");
+         panel.append("server time: " + data.serverTime);
+        }   
+    </script>
+    <script>
+    $("#manual-load").click(e => {
+        e.preventDefault();
+        console.log("Manual data fetching!");
+        $.get("@Url.Action("GetJson", "AjaxTest")",{id : 12, message : "Hello Manual Scripting!", delay: 1500})
+        .done( data =>{
+            const panel = $("#panel-js");
+                     panel.empty();
+                     panel.append("message: " + data.message);
+                     panel.append("<br/>");
+                     panel.append("server time: " + data.serverTime);
+        });
+    })
+    </script>
+}
